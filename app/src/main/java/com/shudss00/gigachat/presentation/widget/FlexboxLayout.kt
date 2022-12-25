@@ -21,30 +21,30 @@ class FlexboxLayout @JvmOverloads constructor(
 //    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         if (childCount == 0) {
             setMeasuredDimension(widthMeasureSpec, heightMeasureSpec)
         } else {
             val firstChild = getChildAt(0)
             measureChild(firstChild, widthMeasureSpec)
-            var currentWidth = paddingStart + firstChild.measuredWidth
+            var currentWidth = firstChild.measuredWidth
             var heightUsed = firstChild.measuredHeight
             var widthUsed = currentWidth
             for (i in 1 until childCount) {
                 val child = getChildAt(i)
                 measureChild(child, widthMeasureSpec)
-                if (currentWidth + child.measuredWidth + paddingEnd < widthSize || widthMode == MeasureSpec.UNSPECIFIED) {
+                if (currentWidth + child.measuredWidth < widthSize || widthMode == MeasureSpec.UNSPECIFIED) {
                     currentWidth += child.measuredWidth
                 } else {
-                    widthUsed = max(currentWidth + paddingEnd, widthUsed)
-                    currentWidth = paddingStart + firstChild.measuredWidth
+                    widthUsed = max(currentWidth, widthUsed)
+                    currentWidth = child.measuredWidth
                     heightUsed += child.measuredHeight
                 }
             }
             setMeasuredDimension(
-                resolveSize(widthUsed, widthMeasureSpec),
-                resolveSize(paddingTop + heightUsed + paddingBottom, heightMeasureSpec)
+                resolveSize(widthUsed + paddingStart + paddingEnd, widthMeasureSpec),
+                resolveSize(heightUsed + paddingTop + paddingBottom, heightMeasureSpec)
             )
         }
     }
@@ -52,25 +52,27 @@ class FlexboxLayout @JvmOverloads constructor(
     private fun measureChild(child: View, parentWidthMeasureSpec: Int) {
         val childWidthMeasureSpec = when (MeasureSpec.getMode(parentWidthMeasureSpec)) {
             MeasureSpec.UNSPECIFIED -> parentWidthMeasureSpec
-            MeasureSpec.AT_MOST -> parentWidthMeasureSpec
-            MeasureSpec.EXACTLY -> MeasureSpec.makeMeasureSpec(
-                MeasureSpec.getSize(parentWidthMeasureSpec),
-                MeasureSpec.AT_MOST
-            )
+            MeasureSpec.EXACTLY, MeasureSpec.AT_MOST ->
+                MeasureSpec.makeMeasureSpec(
+                    MeasureSpec.getSize(parentWidthMeasureSpec) - paddingStart - paddingEnd,
+                    MeasureSpec.AT_MOST
+                )
             else -> error("Unreachable")
         }
+        val childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
         child.measure(
             childWidthMeasureSpec,
-            MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(parentWidthMeasureSpec), MeasureSpec.AT_MOST)
+            childHeightMeasureSpec
         )
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        val width = r - l
         var currentLeftBorder = paddingStart
         var currentTopBorder = paddingTop
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            if ((currentLeftBorder + child.measuredWidth) > (r - l)) {
+            if ((currentLeftBorder + child.measuredWidth + paddingEnd) > width) {
                 currentLeftBorder = paddingStart
                 currentTopBorder += child.measuredHeight
             }
