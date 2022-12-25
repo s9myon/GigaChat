@@ -8,69 +8,62 @@
     tools:context=".presentation.main.MainActivity">
 
     <com.shudss00.gigachat.presentation.widget.FlexboxLayout
-        android:layout_width="200dp"
-        android:padding="30dp"
+        android:layout_width="306dp"
         android:layout_height="wrap_content">
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="1" />
+            app:reactionsNumber="4234" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="2" />
+            app:reactionsNumber="424" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="3" />
+            app:reactionsNumber="292" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="4" />
+            app:reactionsNumber="2553" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="5" />
+            app:reactionsNumber="124" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="6" />
+            app:reactionsNumber="98271" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="7" />
+            app:reactionsNumber="242" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="8" />
+            app:reactionsNumber="4234" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="9" />
-
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="10" />
+            app:reactionsNumber="3423" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
@@ -82,24 +75,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="12" />
+            app:reactionsNumber="164" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="13" />
+            app:reactionsNumber="2" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="14" />
+            app:reactionsNumber="543" />
 
         <com.shudss00.gigachat.presentation.widget.EmojiView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:emojiType="😎"
-            app:reactionsNumber="15" />
+            app:reactionsNumber="765" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="54" />
     </com.shudss00.gigachat.presentation.widget.FlexboxLayout>
 </LinearLayout>

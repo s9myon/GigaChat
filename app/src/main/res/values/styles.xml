@@ -3,17 +3,23 @@
     <style name="Widget.GigaChat" parent="android:Widget" />
 
     <style name="Widget.GigaChat.EmojiView">
-        <item name="android:paddingStart">@dimen/emojiView_paddingLeftRight</item>
-        <item name="android:paddingEnd">@dimen/emojiView_paddingLeftRight</item>
-        <item name="android:paddingTop">@dimen/emojiView_paddingTopBottom</item>
-        <item name="android:paddingBottom">@dimen/emojiView_paddingTopBottom</item>
+        <item name="android:paddingStart">@dimen/emojiView_paddingHorizontal</item>
+        <item name="android:paddingEnd">@dimen/emojiView_paddingHorizontal</item>
+        <item name="android:paddingTop">@dimen/emojiView_paddingVertical</item>
+        <item name="android:paddingBottom">@dimen/emojiView_paddingVertical</item>
         <item name="android:background">@drawable/bg_emoji_view</item>
     </style>
 
     <style name="Widget.GigaChat.MessageView">
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">@dimen/messageView_paddingHorizontal</item>
+        <item name="android:paddingEnd">@dimen/messageView_paddingHorizontal</item>
+        <item name="android:paddingTop">@dimen/messageView_paddingVertical</item>
+        <item name="android:paddingBottom">@dimen/messageView_paddingVertical</item>
+        <item name="android:background">@drawable/bg_message_view_my</item>
+    </style>
+
+    <style name="Widget.GigaChat.FlexboxLayout">
+        <item name="verticalGap">@dimen/flexboxLayout_verticalGap</item>
+        <item name="horizontalGap">@dimen/flexboxLayout_horizontalGap</item>
     </style>
 </resources>

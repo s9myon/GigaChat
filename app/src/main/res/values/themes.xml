@@ -16,6 +16,9 @@
         <item name="colorSurfaceVariant">@color/gray_750</item>
         <item name="colorOnSurface">@color/gray_100</item>
         <item name="colorOnSurfaceVariant">@color/gray_300</item>
+
+        <!-- CustomViews default styles-->
         <item name="emojiViewStyle">@style/Widget.GigaChat.EmojiView</item>
+        <item name="flexboxLayoutStyle">@style/Widget.GigaChat.FlexboxLayout</item>
     </style>
 </resources>
