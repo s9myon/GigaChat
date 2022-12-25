@@ -1,0 +1,21 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.GigaChat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/cyan</item>
+        <item name="colorPrimaryVariant">@color/dark_cyan</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sand</item>
+        <item name="colorSecondaryVariant">@color/sand</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/gray_900</item>
+        <item name="colorSurfaceVariant">@color/gray_750</item>
+        <item name="colorOnSurface">@color/gray_100</item>
+        <item name="colorOnSurfaceVariant">@color/gray_300</item>
+        <item name="emojiViewStyle">@style/Widget.GigaChat.EmojiView</item>
+    </style>
+</resources>

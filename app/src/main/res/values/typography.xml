@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.GigaChat.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextAppearance.GigaChat.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextAppearance.GigaChat.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextAppearance.GigaChat.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextAppearance.GigaChat.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
+</resources>

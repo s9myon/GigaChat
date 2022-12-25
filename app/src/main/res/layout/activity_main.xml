@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.main.MainActivity">
+
+    <com.shudss00.gigachat.presentation.widget.FlexboxLayout
+        android:layout_width="200dp"
+        android:padding="30dp"
+        android:layout_height="wrap_content">
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="1" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="2" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="3" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="4" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="5" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="6" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="7" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="8" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="9" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="10" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="11" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="12" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="13" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="14" />
+
+        <com.shudss00.gigachat.presentation.widget.EmojiView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:emojiType="😎"
+            app:reactionsNumber="15" />
+    </com.shudss00.gigachat.presentation.widget.FlexboxLayout>
+</LinearLayout>

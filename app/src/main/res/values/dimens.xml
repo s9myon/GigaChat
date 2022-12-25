@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="emojiView_textSize">14sp</dimen>
+    <dimen name="emojiView_marginLeftRight">5dp</dimen>
+    <dimen name="emojiView_marginTop">7dp</dimen>
+    <dimen name="emojiView_paddingLeftRight">9dp</dimen>
+    <dimen name="emojiView_paddingTopBottom">7dp</dimen>
+
+    <dimen name="emojiView_bgRadius">10dp</dimen>
+    <dimen name="messageView_bgRadius">18dp</dimen>
+</resources>
