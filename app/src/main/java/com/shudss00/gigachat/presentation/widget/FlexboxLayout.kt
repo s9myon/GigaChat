@@ -37,22 +37,22 @@ class FlexboxLayout @JvmOverloads constructor(
         } else {
             val firstChild = getChildAt(0)
             measureChild(firstChild, widthMeasureSpec)
-            var currentWidth = firstChild.measuredWidth
             var heightUsed = firstChild.measuredHeight
-            var widthUsed = currentWidth
+            var currentMaxWidth = firstChild.measuredWidth
+            var maxWidth = currentMaxWidth
             for (i in 1 until childCount) {
                 val child = getChildAt(i)
                 measureChild(child, widthMeasureSpec)
-                if (currentWidth + horizontalGap + child.measuredWidth < widthSize || widthMode == MeasureSpec.UNSPECIFIED) {
-                    currentWidth += horizontalGap + child.measuredWidth
+                if (currentMaxWidth + horizontalGap + child.measuredWidth < widthSize || widthMode == MeasureSpec.UNSPECIFIED) {
+                    currentMaxWidth += horizontalGap + child.measuredWidth
                 } else {
-                    widthUsed = max(currentWidth, widthUsed)
-                    currentWidth = child.measuredWidth
+                    maxWidth = max(currentMaxWidth, maxWidth)
+                    currentMaxWidth = child.measuredWidth
                     heightUsed += child.measuredHeight + verticalGap
                 }
             }
             setMeasuredDimension(
-                resolveSize(widthUsed + paddingStart + paddingEnd, widthMeasureSpec),
+                resolveSize(maxWidth + paddingStart + paddingEnd, widthMeasureSpec),
                 resolveSize(heightUsed + paddingTop + paddingBottom, heightMeasureSpec)
             )
         }
@@ -60,21 +60,21 @@ class FlexboxLayout @JvmOverloads constructor(
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         val width = r - l
-        var currentLeftBorder = paddingStart
-        var currentTopBorder = paddingTop
+        var currentTop = paddingTop
+        var currentLeft = paddingLeft
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            if ((currentLeftBorder + child.measuredWidth + paddingEnd) > width) {
-                currentLeftBorder = paddingStart
-                currentTopBorder += child.measuredHeight + verticalGap
+            if ((currentLeft + child.measuredWidth + paddingEnd) > width) {
+                currentLeft = paddingStart
+                currentTop += child.measuredHeight + verticalGap
             }
             child.layout(
-                currentLeftBorder,
-                currentTopBorder,
-                currentLeftBorder + child.measuredWidth,
-                currentTopBorder + child.measuredHeight
+                currentLeft,
+                currentTop,
+                currentLeft + child.measuredWidth,
+                currentTop + child.measuredHeight
             )
-            currentLeftBorder += child.measuredWidth + horizontalGap
+            currentLeft += child.measuredWidth + horizontalGap
         }
     }
 
