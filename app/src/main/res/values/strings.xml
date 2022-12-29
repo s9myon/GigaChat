@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GigaChat</string>
+    <string name="image_view_avatar_content_desc">This image is the sender\'s avatar</string>
 </resources>

@@ -10,16 +10,12 @@
         <item name="android:background">@drawable/bg_emoji_view</item>
     </style>
 
-    <style name="Widget.GigaChat.MessageView">
-        <item name="android:paddingStart">@dimen/messageView_paddingHorizontal</item>
-        <item name="android:paddingEnd">@dimen/messageView_paddingHorizontal</item>
-        <item name="android:paddingTop">@dimen/messageView_paddingVertical</item>
-        <item name="android:paddingBottom">@dimen/messageView_paddingVertical</item>
-        <item name="android:background">@drawable/bg_message_view_my</item>
-    </style>
-
     <style name="Widget.GigaChat.FlexboxLayout">
         <item name="verticalGap">@dimen/flexboxLayout_verticalGap</item>
         <item name="horizontalGap">@dimen/flexboxLayout_horizontalGap</item>
+    </style>
+
+    <style name="ShapeAppearance.GigaChat.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

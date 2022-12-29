@@ -1,13 +1,13 @@
 package com.shudss00.gigachat.presentation.widget
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.graphics.Rect
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.withStyledAttributes
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
 
@@ -30,15 +30,12 @@ class EmojiView @JvmOverloads constructor(
     }
 
     init {
-        val typedArray: TypedArray = context.obtainStyledAttributes(
-            attrs,
-            R.styleable.EmojiView
-        )
-        setText(
-            emojiType = typedArray.getString(R.styleable.EmojiView_emojiType).orEmpty(),
-            reactionsNumber = typedArray.getInteger(R.styleable.EmojiView_reactionsNumber, 0)
-        )
-        typedArray.recycle()
+        context.withStyledAttributes(attrs, R.styleable.EmojiView, defStyleAttr) {
+            setText(
+                emojiType = getString(R.styleable.EmojiView_emojiType).orEmpty(),
+                reactionsNumber = getInteger(R.styleable.EmojiView_reactionsNumber, 0)
+            )
+        }
     }
 
     fun setText(emojiType: String, reactionsNumber: Int) {

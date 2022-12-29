@@ -8,7 +8,13 @@
 
     <attr name="flexboxLayoutStyle" format="reference" />
     <declare-styleable name="FlexboxLayout">
-        <attr name="verticalGap" format="dimension"/>
-        <attr name="horizontalGap" format="dimension"/>
+        <attr name="verticalGap" format="dimension" />
+        <attr name="horizontalGap" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MessageView">
+        <attr name="senderAvatar" format="reference" />
+        <attr name="senderName" format="string" />
+        <attr name="messageText" format="string" />
     </declare-styleable>
 </resources>

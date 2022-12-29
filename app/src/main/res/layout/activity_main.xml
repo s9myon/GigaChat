@@ -7,98 +7,104 @@
     android:orientation="vertical"
     tools:context=".presentation.main.MainActivity">
 
-    <com.shudss00.gigachat.presentation.widget.FlexboxLayout
-        android:layout_width="219dp"
-        android:layout_height="wrap_content">
+    <com.shudss00.gigachat.presentation.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:senderName="Шудегова Софья"
+        app:messageText="Hello! How are you?"/>
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="4234" />
+<!--    <com.shudss00.gigachat.presentation.widget.FlexboxLayout-->
+<!--        android:layout_width="209dp"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="424" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="4234" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="292" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="424" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="2553" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="292" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="124" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="2553" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="98271" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="124" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="242" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="98271" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="4234" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="242" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="3423" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="4234" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="11" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="3423" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="164" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="11" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="2" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="164" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="543" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="2" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="765" />
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="543" />-->
 
-        <com.shudss00.gigachat.presentation.widget.EmojiView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:emojiType="😎"
-            app:reactionsNumber="54" />
-    </com.shudss00.gigachat.presentation.widget.FlexboxLayout>
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="765" />-->
+
+<!--        <com.shudss00.gigachat.presentation.widget.EmojiView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:emojiType="😎"-->
+<!--            app:reactionsNumber="54" />-->
+<!--    </com.shudss00.gigachat.presentation.widget.FlexboxLayout>-->
 </LinearLayout>

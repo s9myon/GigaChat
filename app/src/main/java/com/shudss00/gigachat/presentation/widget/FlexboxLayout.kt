@@ -33,7 +33,7 @@ class FlexboxLayout @JvmOverloads constructor(
         val widthSize = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         if (childCount == 0) {
-            setMeasuredDimension(widthMeasureSpec, heightMeasureSpec)
+            setMeasuredDimension(0, 0)
         } else {
             val firstChild = getChildAt(0)
             measureChild(firstChild, widthMeasureSpec)

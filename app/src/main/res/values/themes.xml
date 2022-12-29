@@ -17,8 +17,23 @@
         <item name="colorOnSurface">@color/gray_100</item>
         <item name="colorOnSurfaceVariant">@color/gray_300</item>
 
-        <!-- CustomViews default styles-->
+        <!-- CustomViews default styles. -->
         <item name="emojiViewStyle">@style/Widget.GigaChat.EmojiView</item>
         <item name="flexboxLayoutStyle">@style/Widget.GigaChat.FlexboxLayout</item>
+
+        <!-- Override standard text appearances. -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.GigaChat.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.GigaChat.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.GigaChat.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.GigaChat.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.GigaChat.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.GigaChat.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.GigaChat.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.GigaChat.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.GigaChat.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.GigaChat.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.GigaChat.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.GigaChat.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.GigaChat.Overline</item>
     </style>
 </resources>
