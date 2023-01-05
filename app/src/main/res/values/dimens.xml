@@ -18,5 +18,8 @@
     <dimen name="messageView_textPaddingHorizontal">13dp</dimen>
     <dimen name="messageView_textPaddingVertical">10dp</dimen>
     <dimen name="messageView_gapBetweenTexts">4dp</dimen>
-    <dimen name="messageVIew_gapBetweenImageAndMessage">9dp</dimen>
+    <dimen name="messageView_gapBetweenImageAndMessage">9dp</dimen>
+
+
+    <dimen name="messageBox_horizontalMargin">10dp</dimen>
 </resources>

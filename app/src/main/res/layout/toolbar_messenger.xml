@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.MaterialToolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="56dp"
+    android:background="?attr/colorPrimary">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView_backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:src="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/textView_channelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_gravity="center_vertical"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="24sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="#general" />
+</com.google.android.material.appbar.MaterialToolbar>

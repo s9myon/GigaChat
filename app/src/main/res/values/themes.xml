@@ -12,10 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/gray_950</item>
         <item name="colorSurface">@color/gray_900</item>
         <item name="colorSurfaceVariant">@color/gray_750</item>
         <item name="colorOnSurface">@color/gray_100</item>
         <item name="colorOnSurfaceVariant">@color/gray_300</item>
+        <item name="colorMessageBox">@color/gray_800</item>
 
         <!-- CustomViews default styles. -->
         <item name="emojiViewStyle">@style/Widget.GigaChat.EmojiView</item>

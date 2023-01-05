@@ -6,6 +6,8 @@ import com.shudss00.gigachat.domain.messenger.MessengerRepository
 import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.domain.model.ReactionItem
 import io.reactivex.Single
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -15,9 +17,13 @@ class MessengerRepositoryImpl @Inject constructor(
     private val userApi: UserApi
 ) : MessengerRepository {
 
+    @Serializable
     class Narrow(
+        @SerialName("negated")
         val negated: Boolean = false,
+        @SerialName("operator")
         val operator: String,
+        @SerialName("operand")
         val operand: String
     )
 

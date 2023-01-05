@@ -17,4 +17,6 @@
         <attr name="senderName" format="string" />
         <attr name="messageText" format="string" />
     </declare-styleable>
+
+    <attr name="colorMessageBox" format="color" />
 </resources>

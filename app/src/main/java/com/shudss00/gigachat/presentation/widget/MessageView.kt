@@ -37,8 +37,7 @@ class MessageView @JvmOverloads constructor(
     }
 
     init {
-        val inflater = LayoutInflater.from(context)
-        inflater.inflate(R.layout.message_view, this, true)
+        LayoutInflater.from(context).inflate(R.layout.view_message, this, true)
         context.withStyledAttributes(attrs, R.styleable.MessageView, defStyleAttr) {
             (getChildAt(0) as ImageView).setImageResource(
                 getResourceId(

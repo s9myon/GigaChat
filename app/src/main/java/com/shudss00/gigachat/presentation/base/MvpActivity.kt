@@ -1,10 +1,13 @@
 package com.shudss00.gigachat.presentation.base
 
 import android.os.Bundle
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.shudss00.gigachat.presentation.base.presenter.Presenter
 
-abstract class MvpActivity<V: MvpView, P: Presenter<V>> : AppCompatActivity(), MvpViewCallback<V, P> {
+abstract class MvpActivity<V: MvpView, P: Presenter<V>>(
+    @LayoutRes contentLayoutId: Int
+) : AppCompatActivity(contentLayoutId), MvpViewCallback<V, P> {
 
     private val mvpHelper: MvpHelper<V, P> by lazy { MvpHelper(this) }
 
