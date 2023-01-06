@@ -1,11 +1,11 @@
 package com.shudss00.gigachat.di
 
-import com.shudss00.gigachat.data.messenger.MessengerRepositoryImpl
-import com.shudss00.gigachat.data.source.remote.messenger.MessengerApi
-import com.shudss00.gigachat.data.source.remote.user.UserApi
-import com.shudss00.gigachat.data.user.UserRepositoryImpl
-import com.shudss00.gigachat.domain.messenger.MessengerRepository
-import com.shudss00.gigachat.domain.user.UserRepository
+import com.shudss00.gigachat.data.messages.MessageRepositoryImpl
+import com.shudss00.gigachat.data.source.remote.messages.MessageApi
+import com.shudss00.gigachat.data.source.remote.users.UserApi
+import com.shudss00.gigachat.data.users.UserRepositoryImpl
+import com.shudss00.gigachat.domain.messages.MessageRepository
+import com.shudss00.gigachat.domain.users.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ abstract class ImplementationBindingModule {
 
     @Singleton
     @Binds
-    abstract fun bindMessengerRepository(impl: MessengerRepositoryImpl): MessengerRepository
+    abstract fun bindMessengerRepository(impl: MessageRepositoryImpl): MessageRepository
 
     @Singleton
     @Binds
@@ -27,8 +27,8 @@ abstract class ImplementationBindingModule {
 
         @Singleton
         @Provides
-        fun provideMessageApi(retrofit: Retrofit): MessengerApi {
-            return retrofit.create(MessengerApi::class.java)
+        fun provideMessageApi(retrofit: Retrofit): MessageApi {
+            return retrofit.create(MessageApi::class.java)
         }
 
         @Singleton

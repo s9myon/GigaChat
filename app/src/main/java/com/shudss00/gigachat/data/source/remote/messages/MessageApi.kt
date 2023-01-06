@@ -1,11 +1,11 @@
-package com.shudss00.gigachat.data.source.remote.messenger
+package com.shudss00.gigachat.data.source.remote.messages
 
-import com.shudss00.gigachat.data.model.response.GetMessagesResponse
+import com.shudss00.gigachat.data.source.remote.response.GetMessagesResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MessengerApi {
+interface MessageApi {
 
     @GET("messages")
     fun getMessages(

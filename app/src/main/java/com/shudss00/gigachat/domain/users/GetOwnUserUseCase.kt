@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.domain.user
+package com.shudss00.gigachat.domain.users
 
 import com.shudss00.gigachat.domain.model.UserItem
 import io.reactivex.Single

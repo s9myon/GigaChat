@@ -1,8 +1,8 @@
-package com.shudss00.gigachat.data.source.remote.user
+package com.shudss00.gigachat.data.source.remote.users
 
-import com.shudss00.gigachat.data.model.UserDto
-import com.shudss00.gigachat.data.model.response.GetAllUsersPresenceResponse
-import com.shudss00.gigachat.data.model.response.GetUserPresenceResponse
+import com.shudss00.gigachat.data.source.remote.model.UserDto
+import com.shudss00.gigachat.data.source.remote.response.GetAllUsersPresenceResponse
+import com.shudss00.gigachat.data.source.remote.response.GetUserPresenceResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

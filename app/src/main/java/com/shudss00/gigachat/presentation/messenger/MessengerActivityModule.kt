@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.presentation.messenger
 
-import com.shudss00.gigachat.domain.messenger.GetMessagesUseCase
+import com.shudss00.gigachat.domain.messages.GetMessagesUseCase
 import dagger.Module
 import dagger.Provides
 

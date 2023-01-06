@@ -1,8 +1,8 @@
-package com.shudss00.gigachat.data.user
+package com.shudss00.gigachat.data.users
 
-import com.shudss00.gigachat.data.source.remote.user.UserApi
+import com.shudss00.gigachat.data.source.remote.users.UserApi
 import com.shudss00.gigachat.domain.model.UserItem
-import com.shudss00.gigachat.domain.user.UserRepository
+import com.shudss00.gigachat.domain.users.UserRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

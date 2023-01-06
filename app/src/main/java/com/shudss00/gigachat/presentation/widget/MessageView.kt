@@ -9,8 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.withStyledAttributes
 import androidx.core.view.marginEnd
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
+import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.presentation.extensions.measuredHeightWithMargins
 import com.shudss00.gigachat.presentation.extensions.measuredWidthWithMargins
 import java.lang.Integer.max
@@ -35,25 +38,47 @@ class MessageView @JvmOverloads constructor(
             com.google.android.material.R.attr.colorSurface
         )
     }
+    private val avatarImageView: ImageView
+    private val senderNameTextView: TextView
+    private val messageTextTextView: TextView
+    private val flexboxLayout: FlexboxLayout
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_message, this, true)
+        avatarImageView = getChildAt(0) as ImageView
+        senderNameTextView = getChildAt(1) as TextView
+        messageTextTextView = getChildAt(2) as TextView
+        flexboxLayout = getChildAt(3) as FlexboxLayout
         context.withStyledAttributes(attrs, R.styleable.MessageView, defStyleAttr) {
-            (getChildAt(0) as ImageView).setImageResource(
+            avatarImageView.setImageResource(
                 getResourceId(
                     R.styleable.MessageView_senderAvatar,
                     R.drawable.ic_person_foreground)
             )
-            (getChildAt(1) as TextView).text = getString(R.styleable.MessageView_senderName) ?: DEFAULT_SENDER_NAME
-            (getChildAt(2) as TextView).text = getString(R.styleable.MessageView_messageText) ?: DEFAULT_MESSAGE_TEXT
+            senderNameTextView.text = getString(R.styleable.MessageView_senderName) ?: DEFAULT_SENDER_NAME
+            messageTextTextView.text = getString(R.styleable.MessageView_messageText) ?: DEFAULT_MESSAGE_TEXT
         }
     }
 
+    fun setMessageItem(message: MessageItem) {
+        avatarImageView.load(message.avatar) {
+            transformations(CircleCropTransformation())
+            placeholder(R.drawable.ic_person_foreground)
+            fallback(R.drawable.ic_person_foreground)
+        }
+        senderNameTextView.text = message.username
+        messageTextTextView.text = message.text
+        flexboxLayout.removeAllViews()
+        message.reactions.forEach { reaction ->
+            val emojiView = EmojiView(flexboxLayout.context)
+            emojiView.setReactionItem(reaction)
+            flexboxLayout.addView(emojiView)
+        }
+        requestLayout()
+        invalidate()
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val avatarImageView = getChildAt(0)
-        val senderNameTextView = getChildAt(1)
-        val messageTextTextView = getChildAt(2)
-        val flexboxLayout = getChildAt(3)
         var widthUsed = 0
         var heightUsed = 0
 
@@ -89,11 +114,6 @@ class MessageView @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val avatarImageView = getChildAt(0)
-        val senderNameTextView = getChildAt(1)
-        val messageTextTextView = getChildAt(2)
-        val flexboxLayout = getChildAt(3)
-
         var currentTop = paddingTop
         var currentLeft = paddingLeft
         avatarImageView.layout(

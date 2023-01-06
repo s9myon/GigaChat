@@ -1,8 +1,9 @@
-package com.shudss00.gigachat.data.messenger
+package com.shudss00.gigachat.data.messages
 
-import com.shudss00.gigachat.data.source.remote.messenger.MessengerApi
-import com.shudss00.gigachat.data.source.remote.user.UserApi
-import com.shudss00.gigachat.domain.messenger.MessengerRepository
+import com.shudss00.gigachat.data.source.remote.common.Emoji
+import com.shudss00.gigachat.data.source.remote.messages.MessageApi
+import com.shudss00.gigachat.data.source.remote.users.UserApi
+import com.shudss00.gigachat.domain.messages.MessageRepository
 import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.domain.model.ReactionItem
 import io.reactivex.Single
@@ -12,10 +13,10 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
-class MessengerRepositoryImpl @Inject constructor(
-    private val messengerApi: MessengerApi,
+class MessageRepositoryImpl @Inject constructor(
+    private val messageApi: MessageApi,
     private val userApi: UserApi
-) : MessengerRepository {
+) : MessageRepository {
 
     @Serializable
     class Narrow(
@@ -31,7 +32,7 @@ class MessengerRepositoryImpl @Inject constructor(
         streamTitle: String,
         topicTitle: String
     ): Single<List<MessageItem>> {
-        return messengerApi.getMessages(
+        return messageApi.getMessages(
             narrows = Json.encodeToString(
                 listOf(
                     Narrow(
@@ -59,7 +60,7 @@ class MessengerRepositoryImpl @Inject constructor(
                                     it.emojiName == reaction.emojiName
                                 }
                                 ReactionItem(
-                                    type = reaction.emojiName,
+                                    type = Emoji.from(reaction.emojiName),
                                     reactionNumber = oneTypeReactions.count(),
                                     isSelected = oneTypeReactions.any { it.userId == ownUser.id }
                                 )

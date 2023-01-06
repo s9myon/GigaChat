@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
+import com.shudss00.gigachat.domain.model.ReactionItem
 
 class EmojiView @JvmOverloads constructor(
     context: Context,
@@ -38,8 +39,16 @@ class EmojiView @JvmOverloads constructor(
         }
     }
 
-    fun setText(emojiType: String, reactionsNumber: Int) {
+    private fun setText(emojiType: String, reactionsNumber: Int) {
         text = "$emojiType $reactionsNumber"
+    }
+
+    fun setReactionItem(reactionItem: ReactionItem) {
+        setText(
+            emojiType = reactionItem.type.unicode,
+            reactionsNumber = reactionItem.reactionNumber
+        )
+        this.isSelected = reactionItem.isSelected
         requestLayout()
         invalidate()
     }

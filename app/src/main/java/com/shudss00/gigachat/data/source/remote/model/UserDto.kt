@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.data.model
+package com.shudss00.gigachat.data.source.remote.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,9 +1,9 @@
 package com.shudss00.gigachat.di
 
-import com.shudss00.gigachat.domain.messenger.GetMessagesUseCase
-import com.shudss00.gigachat.domain.messenger.MessengerRepository
-import com.shudss00.gigachat.domain.user.GetOwnUserUseCase
-import com.shudss00.gigachat.domain.user.UserRepository
+import com.shudss00.gigachat.domain.messages.GetMessagesUseCase
+import com.shudss00.gigachat.domain.messages.MessageRepository
+import com.shudss00.gigachat.domain.users.GetOwnUserUseCase
+import com.shudss00.gigachat.domain.users.UserRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,8 +13,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideGetMessagesUseCase(messengerRepository: MessengerRepository): GetMessagesUseCase {
-        return GetMessagesUseCase(messengerRepository)
+    fun provideGetMessagesUseCase(messageRepository: MessageRepository): GetMessagesUseCase {
+        return GetMessagesUseCase(messageRepository)
     }
 
     @Singleton

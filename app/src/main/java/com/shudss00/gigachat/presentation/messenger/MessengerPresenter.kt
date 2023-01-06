@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.presentation.messenger
 
-import com.shudss00.gigachat.domain.messenger.GetMessagesUseCase
+import com.shudss00.gigachat.domain.messages.GetMessagesUseCase
 import com.shudss00.gigachat.presentation.base.presenter.RxPresenter
 import com.shudss00.gigachat.presentation.extensions.async
 import io.reactivex.rxkotlin.subscribeBy
