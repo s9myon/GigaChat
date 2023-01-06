@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/messageView_padding"
+    android:padding="12dp"
     tools:parentTag="com.shudss00.gigachat.presentation.widget.MessageView">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView_avatar"
         android:layout_width="@dimen/messageView_imageSize"
         android:layout_height="@dimen/messageView_imageSize"
-        android:layout_marginEnd="@dimen/messageView_gapBetweenImageAndMessage"
+        android:layout_marginEnd="9dp"
         android:contentDescription="@string/imageView_avatarContentDesc"
         android:src="@drawable/ic_person_foreground"
         android:background="@drawable/ic_person_background"
@@ -34,8 +34,9 @@
         android:id="@+id/textView_messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:maxWidth="@dimen/messageView_maxTextWidth"
-        android:paddingTop="@dimen/messageView_gapBetweenTexts"
+        android:paddingTop="4dp"
         android:paddingBottom="@dimen/messageView_textPaddingVertical"
         android:paddingStart="@dimen/messageView_textPaddingHorizontal"
         android:paddingEnd="@dimen/messageView_textPaddingHorizontal"
@@ -44,7 +45,7 @@
 
     <com.shudss00.gigachat.presentation.widget.FlexboxLayout
         android:id="@+id/flexboxLayout_emojiContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/messageView_maxTextWidth"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:maxWidth="@dimen/messageView_maxTextWidth" />

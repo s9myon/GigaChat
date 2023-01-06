@@ -12,13 +12,10 @@
 
     <!-- custom MessageView -->
     <dimen name="messageView_bgRadius">18dp</dimen>
-    <dimen name="messageView_padding">12dp</dimen>
     <dimen name="messageView_imageSize">37dp</dimen>
     <dimen name="messageView_maxTextWidth">264dp</dimen>
     <dimen name="messageView_textPaddingHorizontal">13dp</dimen>
     <dimen name="messageView_textPaddingVertical">10dp</dimen>
-    <dimen name="messageView_gapBetweenTexts">4dp</dimen>
-    <dimen name="messageView_gapBetweenImageAndMessage">9dp</dimen>
 
 
     <dimen name="messageBox_horizontalMargin">10dp</dimen>

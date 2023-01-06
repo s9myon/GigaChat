@@ -35,25 +35,41 @@ class FlexboxLayout @JvmOverloads constructor(
         if (childCount == 0) {
             setMeasuredDimension(0, 0)
         } else {
+            var isFirstRow = true
             val firstChild = getChildAt(0)
             measureChild(firstChild, widthMeasureSpec)
-            var heightUsed = firstChild.measuredHeight
-            var currentMaxWidth = firstChild.measuredWidth
-            var maxWidth = currentMaxWidth
+            var currentWidth = firstChild.measuredWidth
+            var maxWidth = 0
+            var currentMaxHeight = firstChild.measuredHeight
+            var usedHeight = 0
             for (i in 1 until childCount) {
                 val child = getChildAt(i)
                 measureChild(child, widthMeasureSpec)
-                if (currentMaxWidth + horizontalGap + child.measuredWidth < widthSize || widthMode == MeasureSpec.UNSPECIFIED) {
-                    currentMaxWidth += horizontalGap + child.measuredWidth
+                if (currentWidth + horizontalGap + child.measuredWidth < widthSize || widthMode == MeasureSpec.UNSPECIFIED) {
+                    currentWidth += horizontalGap + child.measuredWidth
+                    currentMaxHeight = max(child.measuredHeight, currentMaxHeight)
+                } else if (isFirstRow) {
+                    maxWidth = max(currentWidth, maxWidth)
+                    currentWidth = child.measuredWidth
+                    usedHeight += currentMaxHeight
+                    currentMaxHeight = child.measuredHeight
+                    isFirstRow = false
                 } else {
-                    maxWidth = max(currentMaxWidth, maxWidth)
-                    currentMaxWidth = child.measuredWidth
-                    heightUsed += child.measuredHeight + verticalGap
+                    maxWidth = max(currentWidth, maxWidth)
+                    currentWidth = child.measuredWidth
+                    usedHeight += verticalGap + currentMaxHeight
+                    currentMaxHeight = child.measuredHeight
                 }
+            }
+            maxWidth = max(currentWidth, maxWidth)
+            if (isFirstRow) {
+                usedHeight = currentMaxHeight
+            } else {
+                usedHeight += verticalGap + currentMaxHeight
             }
             setMeasuredDimension(
                 resolveSize(maxWidth + paddingStart + paddingEnd, widthMeasureSpec),
-                resolveSize(heightUsed + paddingTop + paddingBottom, heightMeasureSpec)
+                resolveSize(usedHeight + paddingTop + paddingBottom, heightMeasureSpec)
             )
         }
     }
@@ -62,11 +78,13 @@ class FlexboxLayout @JvmOverloads constructor(
         val width = r - l
         var currentTop = paddingTop
         var currentLeft = paddingLeft
+        var currentMaxHeight = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
             if ((currentLeft + child.measuredWidth + paddingRight) > width) {
                 currentLeft = paddingLeft
-                currentTop += child.measuredHeight + verticalGap
+                currentTop += currentMaxHeight + verticalGap
+                currentMaxHeight = 0
             }
             child.layout(
                 currentLeft,
@@ -75,6 +93,7 @@ class FlexboxLayout @JvmOverloads constructor(
                 currentTop + child.measuredHeight
             )
             currentLeft += child.measuredWidth + horizontalGap
+            currentMaxHeight = max(currentMaxHeight, child.measuredHeight)
         }
     }
 
