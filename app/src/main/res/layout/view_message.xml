@@ -15,9 +15,9 @@
         android:contentDescription="@string/imageView_avatarContentDesc"
         android:src="@drawable/ic_person_foreground"
         android:background="@drawable/ic_person_background"
-        app:shapeAppearance="@style/ShapeAppearance.GigaChat.CornerSize50Percent"/>
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.GigaChat.CornerSize50Percent"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_senderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:maxLines="1"
         android:ellipsize="end" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

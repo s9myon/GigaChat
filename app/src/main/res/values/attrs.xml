@@ -13,10 +13,16 @@
     </declare-styleable>
 
     <declare-styleable name="MessageView">
-        <attr name="senderAvatar" format="reference" />
+        <attr name="senderAvatarSrc" format="reference" />
         <attr name="senderName" format="string" />
         <attr name="messageText" format="string" />
     </declare-styleable>
 
     <attr name="colorMessageBox" format="color" />
+
+    <declare-styleable name="ErrorView">
+        <attr name="errorImageSrc" format="reference" />
+        <attr name="errorText" format="reference"/>
+        <attr name="buttonText" format="reference" />
+    </declare-styleable>
 </resources>

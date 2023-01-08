@@ -52,7 +52,7 @@ class MessageView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.MessageView, defStyleAttr) {
             avatarImageView.setImageResource(
                 getResourceId(
-                    R.styleable.MessageView_senderAvatar,
+                    R.styleable.MessageView_senderAvatarSrc,
                     R.drawable.ic_person_foreground)
             )
             senderNameTextView.text = getString(R.styleable.MessageView_senderName) ?: DEFAULT_SENDER_NAME

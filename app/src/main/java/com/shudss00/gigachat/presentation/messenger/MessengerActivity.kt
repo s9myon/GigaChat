@@ -56,6 +56,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
 
     override fun showFullscreenLoading() {
         Timber.d("MessengerActivity::showFullscreenLoading")
+
     }
 
     private fun setUpRecyclerView() {

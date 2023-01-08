@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">GigaChat</string>
+
+    <!-- DESCRIPTIONS -->
     <string name="imageView_avatarContentDesc">This image is the sender\'s avatar</string>
+
+    <!-- MESSENGER -->
     <string name="editText_messageHint">Написать…</string>
+
+    <!-- ERRORS -->
+    <string name="error_cant_update_data">Не удалось обновить данные</string>
+    <string name="error_empty_history">Здесь пока нет сообщений</string>
+    <string name="error_failed_load_data">Не удалось загрузить данные</string>
+    <string name="error_try_again">Попробовать снова</string>
 </resources>

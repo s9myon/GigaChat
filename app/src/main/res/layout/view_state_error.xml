@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    tools:layout_height="wrap_content"
+    tools:layout_width="wrap_content"
+    tools:orientation="vertical"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_errorImage"
+        android:layout_width="@dimen/errorView_imageSize"
+        android:layout_height="@dimen/errorView_imageSize"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/placeholder_not_found" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/errorView_marginVertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="@string/error_failed_load_data"
+        android:textColor="?attr/colorOnSurface"
+        android:textAppearance="@style/TextAppearance.GigaChat.Headline6"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_errorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/errorView_marginVertical"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/error_try_again"
+        android:textColor="?attr/colorOnSurface"
+        app:backgroundTint="?attr/colorSurface"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.GigaChat.CornerSize50Percent"/>
+</merge>

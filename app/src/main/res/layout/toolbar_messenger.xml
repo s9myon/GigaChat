@@ -14,7 +14,7 @@
         android:layout_marginStart="22dp"
         android:src="@drawable/ic_back" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_channelTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

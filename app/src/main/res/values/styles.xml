@@ -15,7 +15,7 @@
         <item name="horizontalGap">@dimen/flexboxLayout_horizontalGap</item>
     </style>
 
-    <style name="ShapeAppearance.GigaChat.CornerSize50Percent" parent="">
+    <style name="ShapeAppearanceOverlay.GigaChat.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
 </resources>

@@ -17,6 +17,8 @@
     <dimen name="messageView_textPaddingHorizontal">13dp</dimen>
     <dimen name="messageView_textPaddingVertical">10dp</dimen>
 
-
+    <!-- custom ErrorView -->
+    <dimen name="errorView_imageSize">128dp</dimen>
+    <dimen name="errorView_marginVertical">16dp</dimen>
     <dimen name="messageBox_horizontalMargin">10dp</dimen>
 </resources>
