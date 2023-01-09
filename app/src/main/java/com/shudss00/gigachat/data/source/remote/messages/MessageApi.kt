@@ -1,9 +1,8 @@
 package com.shudss00.gigachat.data.source.remote.messages
 
-import com.shudss00.gigachat.data.source.remote.response.GetMessagesResponse
+import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MessageApi {
 
@@ -17,4 +16,27 @@ interface MessageApi {
         @Query("client_gravatar") clientGravatar: Boolean = false,
         @Query("apply_markdown") applyMarkdown: Boolean = true
     ): Single<GetMessagesResponse>
+
+    @FormUrlEncoded
+    @POST("messages")
+    fun sendMessage(
+        @Field("type") type: String,
+        @Field("to") to: String,
+        @Field("topic") topic: String? = null,
+        @Field("content") content: String
+    ): Completable
+
+    @FormUrlEncoded
+    @POST("messages/{message_id}/reactions")
+    fun addReaction(
+        @Path("message_id") messageId: Long,
+        @Field("emoji_name") emojiName: String
+    ): Completable
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "messages/{message_id}/reactions", hasBody = true)
+    fun deleteReaction(
+        @Path("message_id") messageId: Long,
+        @Field("emoji_name") emojiName: String
+    ): Completable
 }

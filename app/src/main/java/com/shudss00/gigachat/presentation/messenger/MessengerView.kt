@@ -8,6 +8,7 @@ interface MessengerView : MvpView {
     fun showMessageList(items: List<MessageItem>)
     fun showErrorToast()
     fun showPagingLoading()
+    fun hideSwipeRefresh()
     fun showFullscreenError()
     fun showFullscreenLoading()
 }

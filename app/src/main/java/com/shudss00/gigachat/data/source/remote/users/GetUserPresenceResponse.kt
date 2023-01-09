@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.data.source.remote.response
+package com.shudss00.gigachat.data.source.remote.users
 
 import com.shudss00.gigachat.data.source.remote.model.PresenceDto
 import com.shudss00.gigachat.data.source.remote.common.ApiResponse

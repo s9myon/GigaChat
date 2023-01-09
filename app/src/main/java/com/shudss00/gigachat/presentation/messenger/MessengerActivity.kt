@@ -3,12 +3,15 @@ package com.shudss00.gigachat.presentation.messenger
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.databinding.ActivityMessengerBinding
 import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.presentation.base.MvpActivity
+import com.shudss00.gigachat.presentation.extensions.hide
+import com.shudss00.gigachat.presentation.extensions.show
 import com.shudss00.gigachat.presentation.messenger.list.MessengerAdapter
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +21,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     @Inject
     override lateinit var presenter: MessengerPresenter
     override var mvpView: MessengerView = this
-    lateinit var messengerAdapter: MessengerAdapter
+    private lateinit var messengerAdapter: MessengerAdapter
     private lateinit var binding: ActivityMessengerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +30,9 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         binding = ActivityMessengerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpRecyclerView()
-        presenter.getMessages(
-            streamTitle = intent.getStringExtra(STREAM_TITLE).orEmpty(),
-            topicTitle = intent.getStringExtra(TOPIC_TITLE).orEmpty()
-        )
+        setUpSendMessageOnClickListener()
+        setUpSwipeRefreshLayout()
+        setUpInitialState()
     }
 
     override fun onChangeMessageState(item: MessageItem) {
@@ -38,12 +40,14 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     }
 
     override fun showMessageList(items: List<MessageItem>) {
-        Timber.d("MessengerActivity::showMessageList: $items")
+        binding.progressBarMessageList.root.hide()
+        binding.errorViewMessageList.hide()
+        binding.swipeRefreshLayoutMessageList.show()
         messengerAdapter.messages = items
     }
 
     override fun showErrorToast() {
-        Timber.d("MessengerActivity::showErrorToast")
+        Toast.makeText(applicationContext, R.string.error_failed_load_data, Toast.LENGTH_LONG).show()
     }
 
     override fun showPagingLoading() {
@@ -51,12 +55,22 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     }
 
     override fun showFullscreenError() {
-        Timber.d("MessengerActivity::showFullscreenError")
+        binding.progressBarMessageList.root.hide()
+        binding.errorViewMessageList.show()
+        binding.swipeRefreshLayoutMessageList.hide()
+        binding.errorViewMessageList.setErrorButton(R.string.error_try_again) {
+            presenter.onTryAgainClicked()
+        }
     }
 
     override fun showFullscreenLoading() {
-        Timber.d("MessengerActivity::showFullscreenLoading")
+        binding.progressBarMessageList.root.show()
+        binding.errorViewMessageList.hide()
+        binding.swipeRefreshLayoutMessageList.hide()
+    }
 
+    override fun hideSwipeRefresh() {
+        binding.swipeRefreshLayoutMessageList.isRefreshing = false
     }
 
     private fun setUpRecyclerView() {
@@ -64,6 +78,28 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         binding.recyclerViewMessageList.apply {
             adapter = messengerAdapter
             layoutManager = LinearLayoutManager(this@MessengerActivity)
+        }
+    }
+
+    private fun setUpSwipeRefreshLayout() {
+        binding.swipeRefreshLayoutMessageList.setOnRefreshListener {
+            presenter.onSwipeToRefreshTriggered()
+        }
+    }
+
+    private fun setUpInitialState() {
+        presenter.setTitles(
+            streamTitle = intent.getStringExtra(STREAM_TITLE).orEmpty(),
+            topicTitle = intent.getStringExtra(TOPIC_TITLE).orEmpty()
+        )
+        presenter.onCreate()
+    }
+
+    private fun setUpSendMessageOnClickListener() {
+        binding.buttonSendMessage.setOnClickListener {
+            presenter.sendMessage(
+                binding.editTextMessageBox.text.toString()
+            )
         }
     }
 

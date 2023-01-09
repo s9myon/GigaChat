@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.data.source.remote.response
+package com.shudss00.gigachat.data.source.remote.messages
 
 import com.shudss00.gigachat.data.source.remote.model.MessageDto
 import com.shudss00.gigachat.data.source.remote.common.ApiResponse
