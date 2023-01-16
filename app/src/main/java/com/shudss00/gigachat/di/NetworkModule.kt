@@ -10,12 +10,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.shudss00.gigachat.BuildConfig
-import com.shudss00.gigachat.data.source.remote.errors.ErrorMappingCallAdapterFactory
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.*
-import retrofit2.CallAdapter
-import timber.log.Timber
 import javax.inject.Named
 
 @Module
@@ -70,22 +67,13 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideErrorMappingCallAdapterFactory(): CallAdapter.Factory {
-        return ErrorMappingCallAdapterFactory()
-    }
-
-
-    @Singleton
-    @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        converterFactory: Converter.Factory,
-        errorMappingCallAdapterFactory: CallAdapter.Factory
+        converterFactory: Converter.Factory
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL)
             .client(okHttpClient)
-            .addCallAdapterFactory(errorMappingCallAdapterFactory)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(converterFactory)
             .build()
