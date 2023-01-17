@@ -17,33 +17,31 @@ class MessageRepositoryImpl @Inject constructor(
 ) : MessageRepository {
 
     override fun getMessages(streamTitle: String, topicTitle: String): Single<List<MessageItem>> {
-        return messageApi.getMessages(
-            narrows = NarrowBuilder()
-                .stream(streamTitle)
-                .topic(topicTitle)
-                .build()
-        ).flatMap { response ->
-            userApi.getOwnUser().map { ownUser ->
-                response.messages.map { message ->
-                    MessageItem(
-                        id = message.id,
-                        username = message.username,
-                        avatar = message.avatar,
-                        text = message.text,
-                        reactions = message.reactions
-                            .distinctBy { it.emojiName }
-                            .map { reaction ->
-                                val oneTypeReactions = message.reactions.filter {
-                                    it.emojiName == reaction.emojiName
-                                }
-                                ReactionItem(
-                                    type = Emoji.from(reaction.emojiName),
-                                    reactionNumber = oneTypeReactions.count(),
-                                    isSelected = oneTypeReactions.any { it.userId == ownUser.id }
-                                )
-                            }
-                    )
-                }
+        return Single.zip(
+            messageApi.getMessages(
+                narrows = NarrowBuilder()
+                    .stream(streamTitle)
+                    .topic(topicTitle)
+                    .build()
+            ).map { it.messages },
+            userApi.getOwnUser()
+        ) { messages, ownUser ->
+            messages.map { message ->
+                MessageItem(
+                    id = message.id,
+                    username = message.username,
+                    avatar = message.avatar,
+                    text = message.text,
+                    reactions = message.reactions
+                        .groupBy { it.emojiName }
+                        .map { uniqueReaction ->
+                            ReactionItem(
+                                type = Emoji.from(uniqueReaction.key),
+                                reactionNumber = uniqueReaction.value.size,
+                                isSelected = uniqueReaction.value.any { it.userId == ownUser.id }
+                            )
+                        }
+                )
             }
         }
     }

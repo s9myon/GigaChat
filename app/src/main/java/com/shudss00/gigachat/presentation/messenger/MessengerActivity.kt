@@ -3,7 +3,6 @@ package com.shudss00.gigachat.presentation.messenger
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
@@ -47,7 +46,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     }
 
     override fun showErrorToast() {
-        Toast.makeText(applicationContext, R.string.error_failed_load_data, Toast.LENGTH_LONG).show()
+        showToast(R.string.error_failed_load_data)
     }
 
     override fun showPagingLoading() {

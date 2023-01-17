@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.shudss00.gigachat.presentation.base.presenter.Presenter
 
@@ -27,5 +29,9 @@ abstract class MvpFragment<V : MvpView, P : Presenter<V>>(
         val isFinishing = isRemoving || requireActivity().isFinishing
         mvpHelper.destroy(isFinishing)
         super.onDestroyView()
+    }
+
+    fun showToast(@StringRes text: Int) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 }
