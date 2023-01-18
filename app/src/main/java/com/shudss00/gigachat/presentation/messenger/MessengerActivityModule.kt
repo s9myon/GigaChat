@@ -1,9 +1,6 @@
 package com.shudss00.gigachat.presentation.messenger
 
-import com.shudss00.gigachat.domain.messages.AddReactionUseCase
-import com.shudss00.gigachat.domain.messages.DeleteReactionUseCase
-import com.shudss00.gigachat.domain.messages.GetMessagesUseCase
-import com.shudss00.gigachat.domain.messages.SendStreamMessageUseCase
+import com.shudss00.gigachat.domain.messages.*
 import dagger.Module
 import dagger.Provides
 
@@ -14,14 +11,12 @@ class MessengerActivityModule {
     fun providePresenter(
         getMessagesUseCase: GetMessagesUseCase,
         sendStreamMessageUseCase: SendStreamMessageUseCase,
-        addReactionUseCase: AddReactionUseCase,
-        deleteReactionUseCase: DeleteReactionUseCase
+        setReactionToMessageUseCase: SetReactionToMessageUseCase
     ): MessengerPresenter {
         return MessengerPresenter(
             getMessagesUseCase,
             sendStreamMessageUseCase,
-            addReactionUseCase,
-            deleteReactionUseCase
+            setReactionToMessageUseCase
         )
     }
 }

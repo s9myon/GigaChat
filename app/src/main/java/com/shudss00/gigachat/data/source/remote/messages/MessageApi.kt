@@ -6,6 +6,12 @@ import retrofit2.http.*
 
 interface MessageApi {
 
+    @GET("messages/{message_id}")
+    fun getSingleMessage(
+        @Path("message_id") messageId: Long,
+        @Query("apply_markdown") applyMarkdown: Boolean = true
+    ): Single<GetSingleMessageResponse>
+
     @GET("messages")
     fun getMessages(
         @Query("anchor") anchor: String = "newest",

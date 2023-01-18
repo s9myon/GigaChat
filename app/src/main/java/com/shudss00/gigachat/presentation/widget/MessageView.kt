@@ -13,6 +13,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
+import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.presentation.extensions.measuredHeightWithMargins
 import com.shudss00.gigachat.presentation.extensions.measuredWidthWithMargins
@@ -24,12 +25,13 @@ class MessageView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    companion object {
-        private const val RECT_CORNERS_RADIUS = 10f
-        private const val DEFAULT_SENDER_NAME = ""
-        private const val DEFAULT_MESSAGE_TEXT = ""
+    interface MessageClickListener {
+        fun onMessageLongClick(messageId: Long)
+        fun onAddReactionButtonClick(messageId: Long)
+        fun onReactionClick(messageId: Long, emoji: Emoji)
     }
 
+    var messageClickListener: MessageClickListener? = null
     private val messageBounds = RectF()
     private val paint = Paint().apply {
         isAntiAlias = true
@@ -68,11 +70,28 @@ class MessageView @JvmOverloads constructor(
         }
         senderNameTextView.text = message.username
         messageTextTextView.text = message.text
+        messageTextTextView.setOnLongClickListener {
+            messageClickListener?.onMessageLongClick(message.id)
+            return@setOnLongClickListener true
+        }
         flexboxLayout.removeAllViews()
         message.reactions.forEach { reaction ->
             val emojiView = EmojiView(flexboxLayout.context)
             emojiView.setReactionItem(reaction)
+            emojiView.setOnClickListener {
+                messageClickListener?.onReactionClick(
+                    messageId = message.id,
+                    emoji = reaction.type
+                )
+            }
             flexboxLayout.addView(emojiView)
+        }
+        if (message.reactions.isNotEmpty()) {
+            val addReactionButton = LayoutInflater.from(flexboxLayout.context)
+                .inflate(R.layout.view_add_reaction_button, flexboxLayout)
+            addReactionButton.setOnClickListener {
+                messageClickListener?.onAddReactionButtonClick(message.id)
+            }
         }
         requestLayout()
         invalidate()
@@ -102,9 +121,10 @@ class MessageView @JvmOverloads constructor(
             heightMeasureSpec, heightUsed)
         heightUsed += flexboxLayout.measuredHeightWithMargins
 
-        widthUsed += max(
+        widthUsed += maxOf(
             senderNameTextView.measuredWidthWithMargins,
-            messageTextTextView.measuredWidthWithMargins
+            messageTextTextView.measuredWidthWithMargins,
+            flexboxLayout.measuredWidthWithMargins
         )
 
         setMeasuredDimension(
@@ -166,5 +186,11 @@ class MessageView @JvmOverloads constructor(
 
     override fun generateDefaultLayoutParams(): LayoutParams {
         return MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+    }
+
+    companion object {
+        private const val RECT_CORNERS_RADIUS = 10f
+        private const val DEFAULT_SENDER_NAME = ""
+        private const val DEFAULT_MESSAGE_TEXT = ""
     }
 }

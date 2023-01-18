@@ -10,7 +10,7 @@ data class MessageDto(
     @SerialName("sender_full_name")
     val username: String,
     @SerialName("avatar_url")
-    val avatar: String,
+    val avatar: String? = null,
     @SerialName("content")
     val text: String,
     @SerialName("reactions")

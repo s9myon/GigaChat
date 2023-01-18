@@ -1,7 +1,11 @@
 package com.shudss00.gigachat.data.source.remote.common
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 @Suppress("unused")
-enum class Emoji(unicodeCodePoint: Int, val emojiName: String) {
+@Parcelize
+enum class Emoji(private val unicodeCodePoint: Int, val emojiName: String): Parcelable {
     SPACE_INVADER(0x1f47e, "space_invader"),
     SCIENTIST(0x1f52c, "scientist"),
     SHOPPING_CART(0x1f6d2, "shopping_cart"),
@@ -1539,7 +1543,8 @@ enum class Emoji(unicodeCodePoint: Int, val emojiName: String) {
     BADMINTON(0x1f3f8, "badminton"),
     HOURGLASS(0x23f3, "hourglass");
 
-    val unicode: String = String(Character.toChars(unicodeCodePoint))
+    val unicode: String
+        get() = String(Character.toChars(unicodeCodePoint))
 
     companion object {
         fun from(emojiName: String): Emoji {

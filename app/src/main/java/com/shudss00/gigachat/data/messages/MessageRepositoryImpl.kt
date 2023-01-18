@@ -6,14 +6,14 @@ import com.shudss00.gigachat.data.source.remote.messages.NarrowBuilder
 import com.shudss00.gigachat.data.source.remote.users.UserApi
 import com.shudss00.gigachat.domain.messages.MessageRepository
 import com.shudss00.gigachat.domain.model.MessageItem
-import com.shudss00.gigachat.domain.model.ReactionItem
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class MessageRepositoryImpl @Inject constructor(
     private val messageApi: MessageApi,
-    private val userApi: UserApi
+    private val userApi: UserApi,
+    private val messageMapper: MessageMapper
 ) : MessageRepository {
 
     override fun getMessages(streamTitle: String, topicTitle: String): Single<List<MessageItem>> {
@@ -27,21 +27,7 @@ class MessageRepositoryImpl @Inject constructor(
             userApi.getOwnUser()
         ) { messages, ownUser ->
             messages.map { message ->
-                MessageItem(
-                    id = message.id,
-                    username = message.username,
-                    avatar = message.avatar,
-                    text = message.text,
-                    reactions = message.reactions
-                        .groupBy { it.emojiName }
-                        .map { uniqueReaction ->
-                            ReactionItem(
-                                type = Emoji.from(uniqueReaction.key),
-                                reactionNumber = uniqueReaction.value.size,
-                                isSelected = uniqueReaction.value.any { it.userId == ownUser.id }
-                            )
-                        }
-                )
+                messageMapper.map(message, ownUser.id)
             }
         }
     }
@@ -67,17 +53,18 @@ class MessageRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun addReaction(messageId: Long, emoji: Emoji): Completable {
-        return messageApi.addReaction(
-            messageId = messageId,
-            emojiName = emoji.emojiName
-        )
-    }
-
-    override fun deleteReaction(messageId: Long, emoji: Emoji): Completable {
-        return messageApi.deleteReaction(
-            messageId = messageId,
-            emojiName = emoji.emojiName
-        )
+    override fun setReactionToMessage(messageId: Long, emoji: Emoji): Completable {
+        return Single.zip(
+            messageApi.getSingleMessage(messageId).map { it.message },
+            userApi.getOwnUser()
+        ) { message, ownUser ->
+            message.reactions.any { it.emojiName == emoji.emojiName && it.userId == ownUser.id }
+        }.flatMapCompletable { isReactionAlreadySet ->
+            if (isReactionAlreadySet) {
+                messageApi.deleteReaction(messageId, emoji.emojiName)
+            } else {
+                messageApi.addReaction(messageId, emoji.emojiName)
+            }
+        }
     }
 }

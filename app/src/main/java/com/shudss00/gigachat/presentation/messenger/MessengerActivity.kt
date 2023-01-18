@@ -6,16 +6,20 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
+import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.databinding.ActivityMessengerBinding
 import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.presentation.base.MvpActivity
 import com.shudss00.gigachat.presentation.extensions.hide
 import com.shudss00.gigachat.presentation.extensions.show
+import com.shudss00.gigachat.presentation.messenger.emoji.EmojiBottomSheetFragment
 import com.shudss00.gigachat.presentation.messenger.list.MessengerAdapter
+import com.shudss00.gigachat.presentation.widget.MessageView
 import timber.log.Timber
 import javax.inject.Inject
 
-class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layout.activity_messenger), MessengerView {
+class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layout.activity_messenger),
+    MessengerView, MessageView.MessageClickListener {
 
     @Inject
     override lateinit var presenter: MessengerPresenter
@@ -28,6 +32,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         super.onCreate(savedInstanceState)
         binding = ActivityMessengerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpEmojiBottomSheetFragmentListener()
         setUpRecyclerView()
         setUpSendMessageOnClickListener()
         setUpSwipeRefreshLayout()
@@ -72,8 +77,26 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         binding.swipeRefreshLayoutMessageList.isRefreshing = false
     }
 
+    override fun onMessageLongClick(messageId: Long) {
+        EmojiBottomSheetFragment.show(supportFragmentManager, messageId)
+    }
+
+    override fun onAddReactionButtonClick(messageId: Long) {
+        EmojiBottomSheetFragment.show(supportFragmentManager, messageId)
+    }
+
+    override fun onReactionClick(messageId: Long, emoji: Emoji) {
+        presenter.setReactionToMessage(messageId, emoji)
+    }
+
+    private fun setUpEmojiBottomSheetFragmentListener() {
+        EmojiBottomSheetFragment.setUpResultListener(supportFragmentManager, this) { messageId, emoji ->
+            presenter.setReactionToMessage(messageId, emoji)
+        }
+    }
+
     private fun setUpRecyclerView() {
-        messengerAdapter = MessengerAdapter()
+        messengerAdapter = MessengerAdapter(this)
         binding.recyclerViewMessageList.apply {
             adapter = messengerAdapter
             layoutManager = LinearLayoutManager(this@MessengerActivity)
