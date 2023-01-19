@@ -12,10 +12,10 @@ import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.domain.model.ReactionItem
 
-class EmojiView @JvmOverloads constructor(
+class ReactionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.emojiViewStyle
+    defStyleAttr: Int = R.attr.reactionViewStyle
 ) : View(context, attrs, defStyleAttr) {
 
     private var text = ""
@@ -24,17 +24,17 @@ class EmojiView @JvmOverloads constructor(
     private val textPaint = TextPaint().apply {
         isAntiAlias = true
         color = MaterialColors.getColor(
-            this@EmojiView,
+            this@ReactionView,
             com.google.android.material.R.attr.colorOnSurfaceVariant
         )
-        textSize = resources.getDimension(R.dimen.emojiView_textSize)
+        textSize = resources.getDimension(R.dimen.reactionView_textSize)
     }
 
     init {
-        context.withStyledAttributes(attrs, R.styleable.EmojiView, defStyleAttr) {
+        context.withStyledAttributes(attrs, R.styleable.ReactionView, defStyleAttr) {
             setText(
-                emojiType = getString(R.styleable.EmojiView_emojiType).orEmpty(),
-                reactionsNumber = getInteger(R.styleable.EmojiView_reactionsNumber, 0)
+                emojiType = getString(R.styleable.ReactionView_emojiType).orEmpty(),
+                reactionsNumber = getInteger(R.styleable.ReactionView_reactionsNumber, 0)
             )
         }
     }

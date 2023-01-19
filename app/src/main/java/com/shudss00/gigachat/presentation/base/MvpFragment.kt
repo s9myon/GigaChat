@@ -1,9 +1,7 @@
 package com.shudss00.gigachat.presentation.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
@@ -16,13 +14,10 @@ abstract class MvpFragment<V : MvpView, P : Presenter<V>>(
 
     private val mvpHelper: MvpHelper<V, P> by lazy { MvpHelper(this) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mvpHelper.create()
-        return super.onCreateView(inflater, container, savedInstanceState)
+        initUI()
     }
 
     override fun onDestroyView() {
@@ -34,4 +29,6 @@ abstract class MvpFragment<V : MvpView, P : Presenter<V>>(
     fun showToast(@StringRes text: Int) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
+
+    abstract fun initUI()
 }

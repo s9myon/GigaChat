@@ -20,7 +20,7 @@
         <item name="colorMessageBox">@color/gray_800</item>
 
         <!-- CustomViews default styles. -->
-        <item name="emojiViewStyle">@style/Widget.GigaChat.EmojiView</item>
+        <item name="reactionViewStyle">@style/Widget.GigaChat.ReactionView</item>
         <item name="flexboxLayoutStyle">@style/Widget.GigaChat.FlexboxLayout</item>
 
         <!-- Override standard text appearances. -->

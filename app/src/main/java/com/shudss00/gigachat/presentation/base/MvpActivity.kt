@@ -16,6 +16,7 @@ abstract class MvpActivity<V: MvpView, P: Presenter<V>>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mvpHelper.create()
+        initUI()
     }
 
     override fun onDestroy() {
@@ -26,4 +27,7 @@ abstract class MvpActivity<V: MvpView, P: Presenter<V>>(
     fun showToast(@StringRes text: Int) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
+
+    // !!!temporary solution!!!
+    abstract fun initUI()
 }

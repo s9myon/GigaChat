@@ -15,6 +15,7 @@ import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.model.MessageItem
+import com.shudss00.gigachat.presentation.extensions.fromHtml
 import com.shudss00.gigachat.presentation.extensions.measuredHeightWithMargins
 import com.shudss00.gigachat.presentation.extensions.measuredWidthWithMargins
 import java.lang.Integer.max
@@ -69,22 +70,22 @@ class MessageView @JvmOverloads constructor(
             fallback(R.drawable.ic_person_foreground)
         }
         senderNameTextView.text = message.username
-        messageTextTextView.text = message.text
+        messageTextTextView.text = message.text.fromHtml()
         messageTextTextView.setOnLongClickListener {
             messageClickListener?.onMessageLongClick(message.id)
             return@setOnLongClickListener true
         }
         flexboxLayout.removeAllViews()
         message.reactions.forEach { reaction ->
-            val emojiView = EmojiView(flexboxLayout.context)
-            emojiView.setReactionItem(reaction)
-            emojiView.setOnClickListener {
+            val reactionView = ReactionView(flexboxLayout.context)
+            reactionView.setReactionItem(reaction)
+            reactionView.setOnClickListener {
                 messageClickListener?.onReactionClick(
                     messageId = message.id,
                     emoji = reaction.type
                 )
             }
-            flexboxLayout.addView(emojiView)
+            flexboxLayout.addView(reactionView)
         }
         if (message.reactions.isNotEmpty()) {
             val addReactionButton = LayoutInflater.from(flexboxLayout.context)
@@ -180,8 +181,12 @@ class MessageView @JvmOverloads constructor(
         super.dispatchDraw(canvas)
     }
 
-    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
+    override fun generateLayoutParams(attrs: AttributeSet): LayoutParams {
         return MarginLayoutParams(context, attrs)
+    }
+
+    override fun generateLayoutParams(p: LayoutParams): MarginLayoutParams {
+        return MarginLayoutParams(p)
     }
 
     override fun generateDefaultLayoutParams(): LayoutParams {

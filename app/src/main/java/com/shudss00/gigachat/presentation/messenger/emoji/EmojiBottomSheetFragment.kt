@@ -48,12 +48,12 @@ class EmojiBottomSheetFragment: BottomSheetDialogFragment(R.layout.fragment_emoj
 
     companion object {
         private const val EMOJI_GRID_COLUMNS_NUMBER = 7
-        private val TAG = EmojiBottomSheetFragment::class.java.simpleName
         private const val ARG_MESSAGE_ID = "ARG_MESSAGE_ID"
         private const val KEY_MESSAGE_ID_RESPONSE = "KEY_MESSAGE_ID_RESPONSE"
         private const val KEY_EMOJI_RESPONSE = "KEY_EMOJI_RESPONSE"
 
-        val REQUEST_KEY = "$TAG:defaultRequestKey"
+        private val TAG = EmojiBottomSheetFragment::class.java.simpleName
+        private val REQUEST_KEY = "$TAG:getEmojiRequestKey"
 
         fun show(manager: FragmentManager, messageId: Long) {
             val fragment = EmojiBottomSheetFragment()

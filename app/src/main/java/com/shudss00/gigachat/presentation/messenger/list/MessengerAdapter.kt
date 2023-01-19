@@ -17,18 +17,25 @@ class MessengerAdapter(
         set(value) = differ.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(MessageView(parent.context).apply {
-            messageClickListener = listener
-        })
+        return ViewHolder(
+            MessageView(parent.context).apply {
+                messageClickListener = listener
+            }
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.setMessageItem(messages[position])
+        holder.bind(messages[position])
     }
 
     override fun getItemCount(): Int = messages.size
 
-    class ViewHolder(val view: MessageView) : RecyclerView.ViewHolder(view)
+    class ViewHolder(private val view: MessageView) : RecyclerView.ViewHolder(view) {
+
+        fun bind(item: MessageItem) {
+            view.setMessageItem(item)
+        }
+    }
 }
 
 private class ItemCallback : DiffUtil.ItemCallback<MessageItem>() {

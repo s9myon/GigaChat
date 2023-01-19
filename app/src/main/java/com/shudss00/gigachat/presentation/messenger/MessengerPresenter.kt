@@ -1,5 +1,6 @@
 package com.shudss00.gigachat.presentation.messenger
 
+import com.shudss00.gigachat.R
 import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.messages.*
 import com.shudss00.gigachat.presentation.base.presenter.RxPresenter
@@ -30,10 +31,6 @@ class MessengerPresenter @Inject constructor(
         getMessages(initialLoading = true)
     }
 
-    fun onSwipeToRefreshTriggered() {
-        getMessages(initialLoading = false)
-    }
-
     fun sendMessage(content: String) {
         sendMessage(streamTitle, topicTitle, content)
     }
@@ -47,7 +44,7 @@ class MessengerPresenter @Inject constructor(
                 },
                 onError = {
                     Timber.e(it)
-                    view?.showErrorToast()
+                    view?.showErrorToast(R.string.error_failed_send_data)
                 }
             )
             .disposeOnFinish()
@@ -63,9 +60,6 @@ class MessengerPresenter @Inject constructor(
                     view?.showPagingLoading()
                 }
             }
-            .doFinally {
-                view?.hideSwipeRefresh()
-            }
             .subscribeBy(
                 onSuccess = { list ->
                     view?.showMessageList(list)
@@ -75,9 +69,8 @@ class MessengerPresenter @Inject constructor(
                     if (initialLoading) {
                         view?.showFullscreenError()
                     } else {
-                        view?.showErrorToast()
+                        view?.showErrorToast(R.string.error_failed_update_data)
                     }
-
                 }
             )
             .disposeOnFinish()
@@ -92,7 +85,7 @@ class MessengerPresenter @Inject constructor(
                 },
                 onError = {
                     Timber.e(it)
-                    view?.showErrorToast()
+                    view?.showErrorToast(R.string.error_failed_update_data)
                 }
             )
             .disposeOnFinish()

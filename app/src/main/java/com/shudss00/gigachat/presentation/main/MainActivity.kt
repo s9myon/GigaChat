@@ -5,10 +5,9 @@ import android.os.Bundle
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.presentation.messenger.MessengerActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         openMessengerActivity()
     }
 

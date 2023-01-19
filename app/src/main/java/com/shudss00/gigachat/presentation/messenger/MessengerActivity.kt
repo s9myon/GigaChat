@@ -3,7 +3,9 @@ package com.shudss00.gigachat.presentation.messenger
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.data.source.remote.common.Emoji
@@ -25,18 +27,23 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     override lateinit var presenter: MessengerPresenter
     override var mvpView: MessengerView = this
     private lateinit var messengerAdapter: MessengerAdapter
-    private lateinit var binding: ActivityMessengerBinding
+    private val binding by viewBinding(ActivityMessengerBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).component.inject(this)
         super.onCreate(savedInstanceState)
-        binding = ActivityMessengerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
+
+    override fun initUI() {
+        setUpMessageListRecyclerView()
         setUpEmojiBottomSheetFragmentListener()
-        setUpRecyclerView()
         setUpSendMessageOnClickListener()
-        setUpSwipeRefreshLayout()
-        setUpInitialState()
+        setOnMessageBoxTextChangeListener()
+        presenter.setTitles(
+            streamTitle = intent.getStringExtra(ARG_STREAM_TITLE).orEmpty(),
+            topicTitle = intent.getStringExtra(ARG_TOPIC_TITLE).orEmpty()
+        )
+        presenter.onCreate()
     }
 
     override fun onChangeMessageState(item: MessageItem) {
@@ -46,13 +53,14 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     override fun showMessageList(items: List<MessageItem>) {
         binding.progressBarMessageList.root.hide()
         binding.errorViewMessageList.hide()
-        binding.swipeRefreshLayoutMessageList.show()
+        binding.recyclerViewMessageList.show()
         messengerAdapter.messages = items
     }
 
-    override fun showErrorToast() {
-        showToast(R.string.error_failed_load_data)
+    override fun showErrorToast(text: Int) {
+        showToast(text)
     }
+
 
     override fun showPagingLoading() {
         Timber.d("MessengerActivity::showPagingLoading")
@@ -61,7 +69,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     override fun showFullscreenError() {
         binding.progressBarMessageList.root.hide()
         binding.errorViewMessageList.show()
-        binding.swipeRefreshLayoutMessageList.hide()
+        binding.recyclerViewMessageList.hide()
         binding.errorViewMessageList.setErrorButton(R.string.error_try_again) {
             presenter.onTryAgainClicked()
         }
@@ -70,11 +78,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
     override fun showFullscreenLoading() {
         binding.progressBarMessageList.root.show()
         binding.errorViewMessageList.hide()
-        binding.swipeRefreshLayoutMessageList.hide()
-    }
-
-    override fun hideSwipeRefresh() {
-        binding.swipeRefreshLayoutMessageList.isRefreshing = false
+        binding.recyclerViewMessageList.hide()
     }
 
     override fun onMessageLongClick(messageId: Long) {
@@ -95,7 +99,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         }
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpMessageListRecyclerView() {
         messengerAdapter = MessengerAdapter(this)
         binding.recyclerViewMessageList.apply {
             adapter = messengerAdapter
@@ -103,36 +107,38 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         }
     }
 
-    private fun setUpSwipeRefreshLayout() {
-        binding.swipeRefreshLayoutMessageList.setOnRefreshListener {
-            presenter.onSwipeToRefreshTriggered()
+    private fun setOnMessageBoxTextChangeListener() {
+        with(binding) {
+            editTextMessageBox.doAfterTextChanged { message ->
+                if (message.toString().isBlank()) {
+                    buttonSendMessage.setImageResource(R.drawable.ic_add_file)
+                } else {
+                    buttonSendMessage.setImageResource(R.drawable.ic_send_message)
+                }
+            }
         }
     }
 
-    private fun setUpInitialState() {
-        presenter.setTitles(
-            streamTitle = intent.getStringExtra(STREAM_TITLE).orEmpty(),
-            topicTitle = intent.getStringExtra(TOPIC_TITLE).orEmpty()
-        )
-        presenter.onCreate()
-    }
-
     private fun setUpSendMessageOnClickListener() {
-        binding.buttonSendMessage.setOnClickListener {
-            presenter.sendMessage(
-                binding.editTextMessageBox.text.toString()
-            )
+        with(binding) {
+            buttonSendMessage.setOnClickListener {
+                val message = editTextMessageBox.text.toString()
+                if (message.isNotBlank()) {
+                    presenter.sendMessage(message)
+                    editTextMessageBox.text.clear()
+                }
+            }
         }
     }
 
     companion object {
-        const val STREAM_TITLE = "STREAM_TITLE"
-        const val TOPIC_TITLE = "TOPIC_TITLE"
+        const val ARG_STREAM_TITLE = "ARG_STREAM_TITLE"
+        const val ARG_TOPIC_TITLE = "ARG_TOPIC_TITLE"
 
         fun createIntent(context: Context, streamTitle: String, topicTitle: String): Intent {
             return Intent(context, MessengerActivity::class.java)
-                .putExtra(STREAM_TITLE, streamTitle)
-                .putExtra(TOPIC_TITLE, topicTitle)
+                .putExtra(ARG_STREAM_TITLE, streamTitle)
+                .putExtra(ARG_TOPIC_TITLE, topicTitle)
         }
     }
 }

@@ -2,12 +2,12 @@
 <resources>
     <style name="Widget.GigaChat" parent="android:Widget" />
 
-    <style name="Widget.GigaChat.EmojiView">
-        <item name="android:paddingStart">@dimen/emojiView_paddingHorizontal</item>
-        <item name="android:paddingEnd">@dimen/emojiView_paddingHorizontal</item>
-        <item name="android:paddingTop">@dimen/emojiView_paddingVertical</item>
-        <item name="android:paddingBottom">@dimen/emojiView_paddingVertical</item>
-        <item name="android:background">@drawable/bg_emoji_view</item>
+    <style name="Widget.GigaChat.ReactionView">
+        <item name="android:paddingStart">@dimen/reactionView_paddingHorizontal</item>
+        <item name="android:paddingEnd">@dimen/reactionView_paddingHorizontal</item>
+        <item name="android:paddingTop">@dimen/reactionView_paddingVertical</item>
+        <item name="android:paddingBottom">@dimen/reactionView_paddingVertical</item>
+        <item name="android:background">@drawable/bg_reaction_view</item>
     </style>
 
     <style name="Widget.GigaChat.FlexboxLayout">

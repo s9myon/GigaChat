@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- custom EmojiView -->
-    <dimen name="emojiView_textSize">14sp</dimen>
-    <dimen name="emojiView_paddingHorizontal">9dp</dimen>
-    <dimen name="emojiView_paddingVertical">7dp</dimen>
-    <dimen name="emojiView_bgRadius">10dp</dimen>
+    <!-- custom ReactionView -->
+    <dimen name="reactionView_textSize">14sp</dimen>
+    <dimen name="reactionView_paddingHorizontal">9dp</dimen>
+    <dimen name="reactionView_paddingVertical">7dp</dimen>
+    <dimen name="reactionView_bgRadius">10dp</dimen>
 
     <!-- custom FlexboxLayout -->
     <dimen name="flexboxLayout_verticalGap">7dp</dimen>

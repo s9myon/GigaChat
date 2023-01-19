@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shudss00.gigachat.data.source.remote.common.Emoji
 
+private const val EMOJI_SIZE = 40f
 class EmojiBottomSheetAdapter(private val listener: OnEmojiClickListener)
     : RecyclerView.Adapter<EmojiBottomSheetAdapter.ViewHolder>() {
 
@@ -33,7 +34,7 @@ class EmojiBottomSheetAdapter(private val listener: OnEmojiClickListener)
 
         fun bind(item: Emoji) {
             view.text = item.unicode
-            view.textSize = 40f
+            view.textSize = EMOJI_SIZE
             view.setOnClickListener {
                 listener.onEmojiClick(item)
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="emojiViewStyle" format="reference" />
-    <declare-styleable name="EmojiView">
+    <attr name="reactionViewStyle" format="reference" />
+    <declare-styleable name="ReactionView">
         <attr name="emojiType" format="string" />
         <attr name="reactionsNumber" format="integer" />
     </declare-styleable>
