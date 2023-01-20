@@ -21,7 +21,9 @@ class MessageMapper @Inject constructor() {
                         reactionNumber = uniqueReaction.value.size,
                         isSelected = uniqueReaction.value.any { it.userId == ownUserId }
                     )
-                }
+                },
+            isOwnMessage = from.senderId == ownUserId,
+            timestamp = from.timestamp
         )
     }
 }

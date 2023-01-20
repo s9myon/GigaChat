@@ -5,8 +5,8 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.withStyledAttributes
 import androidx.core.view.marginEnd
 import coil.load
@@ -15,15 +15,15 @@ import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.model.MessageItem
-import com.shudss00.gigachat.presentation.extensions.fromHtml
-import com.shudss00.gigachat.presentation.extensions.measuredHeightWithMargins
-import com.shudss00.gigachat.presentation.extensions.measuredWidthWithMargins
+import com.shudss00.gigachat.presentation.extensions.*
 import java.lang.Integer.max
+
+private const val RECT_CORNERS_RADIUS = 20f
 
 class MessageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = R.attr.messageViewStyle
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
     interface MessageClickListener {
@@ -33,151 +33,202 @@ class MessageView @JvmOverloads constructor(
     }
 
     var messageClickListener: MessageClickListener? = null
+    private var isOwnMessage = false
     private val messageBounds = RectF()
-    private val paint = Paint().apply {
+    private val ownMessagePaint = Paint().apply {
+        isAntiAlias = true
+        color = MaterialColors.getColor(
+            this@MessageView,
+            com.google.android.material.R.attr.colorPrimary
+        )
+    }
+    private val nonOwnMessagePaint = Paint().apply {
         isAntiAlias = true
         color = MaterialColors.getColor(
             this@MessageView,
             com.google.android.material.R.attr.colorSurface
         )
     }
-    private val avatarImageView: ImageView
-    private val senderNameTextView: TextView
-    private val messageTextTextView: TextView
-    private val flexboxLayout: FlexboxLayout
+    private val avatarImageView: AppCompatImageView
+    private val senderNameTextView: AppCompatTextView
+    private val messageTextView: AppCompatTextView
+    private val reactionFlexboxLayout: FlexboxLayout
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_message, this, true)
-        avatarImageView = getChildAt(0) as ImageView
-        senderNameTextView = getChildAt(1) as TextView
-        messageTextTextView = getChildAt(2) as TextView
-        flexboxLayout = getChildAt(3) as FlexboxLayout
+        avatarImageView = getChildAt(0) as AppCompatImageView
+        senderNameTextView = getChildAt(1) as AppCompatTextView
+        messageTextView = getChildAt(2) as AppCompatTextView
+        reactionFlexboxLayout = getChildAt(3) as FlexboxLayout
         context.withStyledAttributes(attrs, R.styleable.MessageView, defStyleAttr) {
             avatarImageView.setImageResource(
                 getResourceId(
                     R.styleable.MessageView_senderAvatarSrc,
                     R.drawable.ic_person_foreground)
             )
-            senderNameTextView.text = getString(R.styleable.MessageView_senderName) ?: DEFAULT_SENDER_NAME
-            messageTextTextView.text = getString(R.styleable.MessageView_messageText) ?: DEFAULT_MESSAGE_TEXT
+            senderNameTextView.text = getString(R.styleable.MessageView_senderName).orEmpty()
+            messageTextView.text = getString(R.styleable.MessageView_messageText).orEmpty()
         }
     }
 
     fun setMessageItem(message: MessageItem) {
-        avatarImageView.load(message.avatar) {
-            transformations(CircleCropTransformation())
-            placeholder(R.drawable.ic_person_foreground)
-            fallback(R.drawable.ic_person_foreground)
+        isOwnMessage = message.isOwnMessage
+        if (isOwnMessage) {
+            avatarImageView.hide()
+            senderNameTextView.hide()
+        } else {
+            avatarImageView.show()
+            avatarImageView.load(message.avatar) {
+                transformations(CircleCropTransformation())
+                placeholder(R.drawable.ic_person_foreground)
+                fallback(R.drawable.ic_person_foreground)
+            }
+            senderNameTextView.show()
+            senderNameTextView.text = message.username.fromHtml()
         }
-        senderNameTextView.text = message.username
-        messageTextTextView.text = message.text.fromHtml()
-        messageTextTextView.setOnLongClickListener {
+        messageTextView.text = message.text.fromHtml()
+        messageTextView.setOnLongClickListener {
             messageClickListener?.onMessageLongClick(message.id)
             return@setOnLongClickListener true
         }
-        flexboxLayout.removeAllViews()
-        message.reactions.forEach { reaction ->
-            val reactionView = ReactionView(flexboxLayout.context)
-            reactionView.setReactionItem(reaction)
-            reactionView.setOnClickListener {
-                messageClickListener?.onReactionClick(
-                    messageId = message.id,
-                    emoji = reaction.type
-                )
-            }
-            flexboxLayout.addView(reactionView)
-        }
-        if (message.reactions.isNotEmpty()) {
-            val addReactionButton = LayoutInflater.from(flexboxLayout.context)
-                .inflate(R.layout.view_add_reaction_button, flexboxLayout)
-            addReactionButton.setOnClickListener {
-                messageClickListener?.onAddReactionButtonClick(message.id)
-            }
-        }
+        setReactions(message)
         requestLayout()
         invalidate()
     }
 
+    private fun setReactions(message: MessageItem) {
+        reactionFlexboxLayout.removeAllViews()
+        if (message.reactions.isNotEmpty()) {
+            reactionFlexboxLayout.show()
+            message.reactions.forEach { reaction ->
+                val reactionView = ReactionView(reactionFlexboxLayout.context)
+                reactionView.setReactionItem(reaction)
+                reactionView.setOnClickListener {
+                    messageClickListener?.onReactionClick(
+                        messageId = message.id,
+                        emoji = reaction.type
+                    )
+                }
+                reactionFlexboxLayout.addView(reactionView)
+            }
+            LayoutInflater.from(reactionFlexboxLayout.context)
+                .inflate(R.layout.view_add_reaction_button, reactionFlexboxLayout)
+                .apply {
+                    setOnClickListener {
+                        messageClickListener?.onAddReactionButtonClick(message.id)
+                    }
+                }
+        } else {
+            reactionFlexboxLayout.hide()
+        }
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         var widthUsed = 0
         var heightUsed = 0
 
-        measureChildWithMargins(avatarImageView,
+        if (!isOwnMessage) {
+            measureChildWithMargins(avatarImageView,
+                widthMeasureSpec, widthUsed,
+                heightMeasureSpec, heightUsed)
+            widthUsed += avatarImageView.measuredWidthWithMargins
+
+            measureChildWithMargins(senderNameTextView,
+                widthMeasureSpec, widthUsed,
+                heightMeasureSpec, heightUsed)
+            heightUsed += senderNameTextView.measuredHeightWithMargins
+        }
+
+        measureChildWithMargins(messageTextView,
             widthMeasureSpec, widthUsed,
             heightMeasureSpec, heightUsed)
-        widthUsed += avatarImageView.measuredWidthWithMargins
+        heightUsed += messageTextView.measuredHeightWithMargins + dpToPx(7f)
 
-        measureChildWithMargins(senderNameTextView,
+        measureChildWithMargins(reactionFlexboxLayout,
             widthMeasureSpec, widthUsed,
             heightMeasureSpec, heightUsed)
-        heightUsed += senderNameTextView.measuredHeightWithMargins
+        heightUsed += reactionFlexboxLayout.measuredHeightWithMargins
 
-        measureChildWithMargins(messageTextTextView,
-            widthMeasureSpec, widthUsed,
-            heightMeasureSpec, heightUsed)
-        heightUsed += messageTextTextView.measuredHeightWithMargins
-
-        measureChildWithMargins(flexboxLayout,
-            widthMeasureSpec, widthUsed,
-            heightMeasureSpec, heightUsed)
-        heightUsed += flexboxLayout.measuredHeightWithMargins
-
-        widthUsed += maxOf(
-            senderNameTextView.measuredWidthWithMargins,
-            messageTextTextView.measuredWidthWithMargins,
-            flexboxLayout.measuredWidthWithMargins
-        )
-
-        setMeasuredDimension(
-            resolveSize(widthUsed + paddingStart + paddingEnd, widthMeasureSpec),
-            heightUsed + paddingTop + paddingBottom
-        )
+        val heightSize = heightUsed + paddingTop + paddingBottom
+        setMeasuredDimension(widthSize, heightSize)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        var currentTop = paddingTop
-        var currentLeft = paddingLeft
-        avatarImageView.layout(
-            currentLeft,
-            currentTop,
-            currentLeft + avatarImageView.measuredWidth,
-            currentTop + avatarImageView.measuredHeight
-        )
+        if (isOwnMessage) {
+            var currentTop = paddingTop
 
-        currentLeft += avatarImageView.measuredWidthWithMargins
-        senderNameTextView.layout(
-            currentLeft,
-            currentTop,
-            currentLeft + senderNameTextView.measuredWidth,
-            currentTop + senderNameTextView.measuredHeight
-        )
+            messageTextView.layout(
+                r - l - paddingRight - messageTextView.measuredWidth,
+                currentTop,
+                r - l - paddingRight,
+                currentTop + messageTextView.measuredHeight
+            )
+            currentTop += messageTextView.measuredHeightWithMargins + dpToPx(7F)
 
-        currentTop += senderNameTextView.measuredHeight
-        messageTextTextView.layout(
-            currentLeft,
-            currentTop,
-            currentLeft + messageTextTextView.measuredWidth,
-            currentTop + messageTextTextView.measuredHeight
-        )
+            reactionFlexboxLayout.layout(
+                r - l - paddingRight - reactionFlexboxLayout.measuredWidth,
+                currentTop,
+                r - l - paddingRight,
+                currentTop + reactionFlexboxLayout.measuredHeight
+            )
 
-        currentTop += messageTextTextView.measuredHeightWithMargins
-        flexboxLayout.layout(
-            currentLeft,
-            currentTop,
-            currentLeft + flexboxLayout.measuredWidth,
-            currentTop + flexboxLayout.measuredHeight
-        )
+            messageBounds.set(
+                messageTextView.left.toFloat(),
+                messageTextView.top.toFloat(),
+                messageTextView.right.toFloat(),
+                messageTextView.bottom.toFloat()
+            )
+        } else {
+            var currentTop = paddingTop
+            var currentLeft = paddingLeft
 
-        messageBounds.set(
-            (avatarImageView.right + avatarImageView.marginEnd).toFloat(),
-            senderNameTextView.top.toFloat(),
-            max(senderNameTextView.right, messageTextTextView.right).toFloat(),
-            messageTextTextView.bottom.toFloat()
-        )
+            avatarImageView.layout(
+                currentLeft,
+                currentTop,
+                currentLeft + avatarImageView.measuredWidth,
+                currentTop + avatarImageView.measuredHeight
+            )
+            currentLeft += avatarImageView.measuredWidthWithMargins
+
+            senderNameTextView.layout(
+                currentLeft,
+                currentTop,
+                currentLeft + senderNameTextView.measuredWidth,
+                currentTop + senderNameTextView.measuredHeight
+            )
+            currentTop += senderNameTextView.measuredHeightWithMargins
+
+            messageTextView.layout(
+                currentLeft,
+                currentTop,
+                currentLeft + messageTextView.measuredWidth,
+                currentTop + messageTextView.measuredHeight
+            )
+            currentTop += messageTextView.measuredHeightWithMargins + dpToPx(7F)
+
+            reactionFlexboxLayout.layout(
+                currentLeft,
+                currentTop,
+                currentLeft + reactionFlexboxLayout.measuredWidth,
+                currentTop + reactionFlexboxLayout.measuredHeight
+            )
+
+            messageBounds.set(
+                (avatarImageView.right + avatarImageView.marginEnd).toFloat(),
+                senderNameTextView.top.toFloat(),
+                max(senderNameTextView.right, messageTextView.right).toFloat(),
+                messageTextView.bottom.toFloat()
+            )
+        }
     }
 
     override fun dispatchDraw(canvas: Canvas) {
-        canvas.drawRoundRect(messageBounds, RECT_CORNERS_RADIUS, RECT_CORNERS_RADIUS, paint)
+        if (isOwnMessage) {
+            canvas.drawRoundRect(messageBounds, RECT_CORNERS_RADIUS, RECT_CORNERS_RADIUS, ownMessagePaint)
+        } else {
+            canvas.drawRoundRect(messageBounds, RECT_CORNERS_RADIUS, RECT_CORNERS_RADIUS, nonOwnMessagePaint)
+        }
         super.dispatchDraw(canvas)
     }
 
@@ -185,17 +236,11 @@ class MessageView @JvmOverloads constructor(
         return MarginLayoutParams(context, attrs)
     }
 
-    override fun generateLayoutParams(p: LayoutParams): MarginLayoutParams {
+    override fun generateLayoutParams(p: LayoutParams): LayoutParams {
         return MarginLayoutParams(p)
     }
 
     override fun generateDefaultLayoutParams(): LayoutParams {
         return MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-    }
-
-    companion object {
-        private const val RECT_CORNERS_RADIUS = 10f
-        private const val DEFAULT_SENDER_NAME = ""
-        private const val DEFAULT_MESSAGE_TEXT = ""
     }
 }

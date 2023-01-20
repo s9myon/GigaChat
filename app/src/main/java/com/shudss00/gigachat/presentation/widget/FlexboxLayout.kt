@@ -15,23 +15,24 @@ class FlexboxLayout @JvmOverloads constructor(
     defStyleAttr: Int = R.attr.flexboxLayoutStyle
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    companion object {
-        const val DEFAULT_VERTICAL_GAP = 0
-        const val DEFAULT_HORIZONTAL_GAP = 0
-    }
-
+    private var maxWidth: Int by Delegates.notNull()
     private var verticalGap: Int by Delegates.notNull()
     private var horizontalGap: Int by Delegates.notNull()
     init {
         context.withStyledAttributes(attrs, R.styleable.FlexboxLayout, defStyleAttr) {
-            verticalGap = getDimensionPixelOffset(R.styleable.FlexboxLayout_verticalGap, DEFAULT_VERTICAL_GAP)
-            horizontalGap = getDimensionPixelOffset(R.styleable.FlexboxLayout_horizontalGap, DEFAULT_HORIZONTAL_GAP)
+            maxWidth = getLayoutDimension(R.styleable.FlexboxLayout_android_maxWidth, 0)
+            verticalGap = getDimensionPixelOffset(R.styleable.FlexboxLayout_verticalGap, 0)
+            horizontalGap = getDimensionPixelOffset(R.styleable.FlexboxLayout_horizontalGap, 0)
         }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
+        var widthSize = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
+        if (widthSize > maxWidth) {
+            widthSize = maxWidth
+        }
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+
         if (childCount == 0) {
             setMeasuredDimension(0, 0)
         } else {
