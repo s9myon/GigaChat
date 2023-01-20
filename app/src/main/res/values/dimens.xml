@@ -11,11 +11,12 @@
     <dimen name="flexboxLayout_horizontalGap">10dp</dimen>
 
     <!-- custom MessageView -->
+    <dimen name="messageView_commonPadding">10dp</dimen>
     <dimen name="messageView_bgRadius">18dp</dimen>
     <dimen name="messageView_imageSize">37dp</dimen>
     <dimen name="messageView_maxTextWidth">264dp</dimen>
     <dimen name="messageView_textPaddingHorizontal">13dp</dimen>
-    <dimen name="messageView_textPaddingVertical">10dp</dimen>
+    <dimen name="messageView_textPaddingVertical">6dp</dimen>
 
     <!-- custom ErrorView -->
     <dimen name="errorView_imageSize">128dp</dimen>

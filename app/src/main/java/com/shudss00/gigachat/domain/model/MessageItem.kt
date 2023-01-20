@@ -5,5 +5,7 @@ data class MessageItem(
     val username: String,
     val avatar: String?,
     val text: String,
-    val reactions: List<ReactionItem>
+    val reactions: List<ReactionItem>,
+    val isOwnMessage: Boolean,
+    val timestamp: Int
 )

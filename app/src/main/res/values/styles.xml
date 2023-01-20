@@ -15,6 +15,10 @@
         <item name="horizontalGap">@dimen/flexboxLayout_horizontalGap</item>
     </style>
 
+    <style name="Widget.GigaChat.MessageView">
+        <item name="android:padding">@dimen/messageView_commonPadding</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay.GigaChat.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>

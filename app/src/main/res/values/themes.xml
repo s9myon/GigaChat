@@ -17,11 +17,12 @@
         <item name="colorSurfaceVariant">@color/gray_750</item>
         <item name="colorOnSurface">@color/gray_100</item>
         <item name="colorOnSurfaceVariant">@color/gray_300</item>
-        <item name="colorMessageBox">@color/gray_800</item>
+        <item name="messageBoxColor">@color/gray_800</item>
 
         <!-- CustomViews default styles. -->
         <item name="reactionViewStyle">@style/Widget.GigaChat.ReactionView</item>
         <item name="flexboxLayoutStyle">@style/Widget.GigaChat.FlexboxLayout</item>
+        <item name="messageViewStyle">@style/Widget.GigaChat.MessageView</item>
 
         <!-- Override standard text appearances. -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.GigaChat.Headline1</item>

@@ -12,13 +12,14 @@
         <attr name="horizontalGap" format="dimension" />
     </declare-styleable>
 
+    <attr name="messageViewStyle" format="reference" />
     <declare-styleable name="MessageView">
         <attr name="senderAvatarSrc" format="reference" />
         <attr name="senderName" format="string" />
         <attr name="messageText" format="string" />
     </declare-styleable>
 
-    <attr name="colorMessageBox" format="color" />
+    <attr name="messageBoxColor" format="color" />
 
     <declare-styleable name="ErrorView">
         <attr name="errorImageSrc" format="reference" />
