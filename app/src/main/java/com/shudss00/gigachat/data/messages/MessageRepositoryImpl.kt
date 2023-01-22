@@ -5,7 +5,7 @@ import com.shudss00.gigachat.data.source.remote.messages.MessageApi
 import com.shudss00.gigachat.data.source.remote.messages.NarrowBuilder
 import com.shudss00.gigachat.data.source.remote.users.UserApi
 import com.shudss00.gigachat.domain.messages.MessageRepository
-import com.shudss00.gigachat.domain.model.MessageItem
+import com.shudss00.gigachat.domain.model.Message
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class MessageRepositoryImpl @Inject constructor(
     private val messageMapper: MessageMapper
 ) : MessageRepository {
 
-    override fun getMessages(streamTitle: String, topicTitle: String): Single<List<MessageItem>> {
+    override fun getMessages(streamTitle: String, topicTitle: String): Single<List<Message>> {
         return Single.zip(
             messageApi.getMessages(
                 narrows = NarrowBuilder()

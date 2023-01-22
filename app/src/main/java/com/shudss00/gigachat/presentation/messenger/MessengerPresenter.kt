@@ -5,8 +5,12 @@ import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.messages.*
 import com.shudss00.gigachat.presentation.base.presenter.RxPresenter
 import com.shudss00.gigachat.presentation.extensions.async
+import com.shudss00.gigachat.presentation.messenger.viewobject.DateItem
+import com.shudss00.gigachat.presentation.messenger.viewobject.MessageItem
+import com.shudss00.gigachat.presentation.messenger.viewobject.MessengerItem
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class MessengerPresenter @Inject constructor(
@@ -15,6 +19,7 @@ class MessengerPresenter @Inject constructor(
     internal val setReactionToMessageUseCase: SetReactionToMessageUseCase
 ) : RxPresenter<MessengerView>() {
 
+    private var dataParser = SimpleDateFormat("dd MMM")
     private var streamTitle: String = ""
     private var topicTitle: String = ""
 
@@ -52,6 +57,28 @@ class MessengerPresenter @Inject constructor(
 
     private fun getMessages(initialLoading: Boolean) {
         getMessagesUseCase(streamTitle, topicTitle)
+            .map { messageList ->
+                val messengerItems = mutableListOf<MessengerItem>()
+                var currentDay = ""
+                messageList.forEach { message ->
+                    val messageSendingTime = dataParser.format(message.timestamp * 1000)
+                    if (currentDay != messageSendingTime) {
+                        messengerItems.add(DateItem(date = messageSendingTime))
+                        currentDay = messageSendingTime
+                    }
+                    messengerItems.add(
+                        MessageItem(
+                            id = message.id,
+                            username = message.username,
+                            avatar = message.avatar,
+                            text = message.text,
+                            reactions = message.reactions,
+                            isOwnMessage = message.isOwnMessage
+                        )
+                    )
+                }
+                messengerItems
+            }
             .async()
             .doOnSubscribe {
                 if (initialLoading) {

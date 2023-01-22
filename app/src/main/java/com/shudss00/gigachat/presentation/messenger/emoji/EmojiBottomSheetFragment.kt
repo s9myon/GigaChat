@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +18,11 @@ import com.shudss00.gigachat.presentation.extensions.parcelable
 
 class EmojiBottomSheetFragment: BottomSheetDialogFragment(R.layout.fragment_emoji_bottom_sheet),
     EmojiBottomSheetAdapter.OnEmojiClickListener {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_GigaChat_BottomSheetDialog)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -16,10 +16,21 @@
     </style>
 
     <style name="Widget.GigaChat.MessageView">
-        <item name="android:padding">@dimen/messageView_commonPadding</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.GigaChat.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.GigaChat.EmojiBottomSheetDialog" parent="">
+        <item name="cornerSize">20dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="Widget.GigaChat.EmojiBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="background">?attr/colorSurface</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.GigaChat.EmojiBottomSheetDialog</item>
     </style>
 </resources>

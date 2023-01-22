@@ -14,8 +14,8 @@ import coil.transform.CircleCropTransformation
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.data.source.remote.common.Emoji
-import com.shudss00.gigachat.domain.model.MessageItem
 import com.shudss00.gigachat.presentation.extensions.*
+import com.shudss00.gigachat.presentation.messenger.viewobject.MessageItem
 import java.lang.Integer.max
 
 private const val RECT_CORNERS_RADIUS = 20f
@@ -143,7 +143,7 @@ class MessageView @JvmOverloads constructor(
         measureChildWithMargins(messageTextView,
             widthMeasureSpec, widthUsed,
             heightMeasureSpec, heightUsed)
-        heightUsed += messageTextView.measuredHeightWithMargins + dpToPx(7f)
+        heightUsed += messageTextView.measuredHeightWithMargins + 7.dpToPx()
 
         measureChildWithMargins(reactionFlexboxLayout,
             widthMeasureSpec, widthUsed,
@@ -164,7 +164,7 @@ class MessageView @JvmOverloads constructor(
                 r - l - paddingRight,
                 currentTop + messageTextView.measuredHeight
             )
-            currentTop += messageTextView.measuredHeightWithMargins + dpToPx(7F)
+            currentTop += messageTextView.measuredHeightWithMargins + 7.dpToPx()
 
             reactionFlexboxLayout.layout(
                 r - l - paddingRight - reactionFlexboxLayout.measuredWidth,
@@ -205,7 +205,7 @@ class MessageView @JvmOverloads constructor(
                 currentLeft + messageTextView.measuredWidth,
                 currentTop + messageTextView.measuredHeight
             )
-            currentTop += messageTextView.measuredHeightWithMargins + dpToPx(7F)
+            currentTop += messageTextView.measuredHeightWithMargins + 7.dpToPx()
 
             reactionFlexboxLayout.layout(
                 currentLeft,

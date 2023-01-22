@@ -1,11 +1,11 @@
 package com.shudss00.gigachat.domain.model
 
-data class MessageItem(
+data class Message(
     val id: Long,
     val username: String,
     val avatar: String?,
     val text: String,
-    val reactions: List<ReactionItem>,
+    val reactions: List<Reaction>,
     val isOwnMessage: Boolean,
-    val timestamp: Int
+    val timestamp: Long
 )

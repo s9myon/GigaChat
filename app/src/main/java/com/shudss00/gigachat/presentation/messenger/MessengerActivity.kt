@@ -10,12 +10,14 @@ import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.databinding.ActivityMessengerBinding
-import com.shudss00.gigachat.domain.model.MessageItem
+import com.shudss00.gigachat.domain.model.Message
 import com.shudss00.gigachat.presentation.base.MvpActivity
 import com.shudss00.gigachat.presentation.extensions.hide
 import com.shudss00.gigachat.presentation.extensions.show
 import com.shudss00.gigachat.presentation.messenger.emoji.EmojiBottomSheetFragment
+import com.shudss00.gigachat.presentation.messenger.list.DateDecoration
 import com.shudss00.gigachat.presentation.messenger.list.MessengerAdapter
+import com.shudss00.gigachat.presentation.messenger.viewobject.MessengerItem
 import com.shudss00.gigachat.presentation.widget.MessageView
 import timber.log.Timber
 import javax.inject.Inject
@@ -46,15 +48,15 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         presenter.onCreate()
     }
 
-    override fun onChangeMessageState(item: MessageItem) {
+    override fun onChangeMessageState(item: Message) {
         Timber.d("MessengerActivity::onChangeMessageState: $item")
     }
 
-    override fun showMessageList(items: List<MessageItem>) {
+    override fun showMessageList(items: List<MessengerItem>) {
         binding.progressBarMessageList.root.hide()
         binding.errorViewMessageList.hide()
         binding.recyclerViewMessageList.show()
-        messengerAdapter.messages = items
+        messengerAdapter.messengerItems = items
     }
 
     override fun showErrorToast(text: Int) {
@@ -104,6 +106,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         binding.recyclerViewMessageList.apply {
             adapter = messengerAdapter
             layoutManager = LinearLayoutManager(this@MessengerActivity)
+            addItemDecoration(DateDecoration())
         }
     }
 

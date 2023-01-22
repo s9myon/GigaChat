@@ -18,5 +18,5 @@ data class MessageDto(
     @SerialName("reactions")
     val reactions: List<ReactionDto>,
     @SerialName("timestamp")
-    val timestamp: Int
+    val timestamp: Long
 )

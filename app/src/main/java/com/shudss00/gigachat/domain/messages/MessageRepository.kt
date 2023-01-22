@@ -1,12 +1,12 @@
 package com.shudss00.gigachat.domain.messages
 
 import com.shudss00.gigachat.data.source.remote.common.Emoji
-import com.shudss00.gigachat.domain.model.MessageItem
+import com.shudss00.gigachat.domain.model.Message
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface MessageRepository {
-    fun getMessages(streamTitle: String, topicTitle: String): Single<List<MessageItem>>
+    fun getMessages(streamTitle: String, topicTitle: String): Single<List<Message>>
 
     fun sendPrivateMessage(userId: Long, content: String): Completable
 

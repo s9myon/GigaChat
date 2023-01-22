@@ -10,7 +10,7 @@ import android.view.View
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
-import com.shudss00.gigachat.domain.model.ReactionItem
+import com.shudss00.gigachat.domain.model.Reaction
 
 class ReactionView @JvmOverloads constructor(
     context: Context,
@@ -43,12 +43,12 @@ class ReactionView @JvmOverloads constructor(
         text = "$emojiType $reactionsNumber"
     }
 
-    fun setReactionItem(reactionItem: ReactionItem) {
+    fun setReactionItem(reaction: Reaction) {
         setText(
-            emojiType = reactionItem.type.unicode,
-            reactionsNumber = reactionItem.reactionNumber
+            emojiType = reaction.type.unicode,
+            reactionsNumber = reaction.reactionNumber
         )
-        this.isSelected = reactionItem.isSelected
+        this.isSelected = reaction.isSelected
         requestLayout()
         invalidate()
     }
