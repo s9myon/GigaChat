@@ -6,6 +6,8 @@
 
     <!-- MESSENGER -->
     <string name="editText_messageHint">Написать…</string>
+    <string name="textView_streamTitle">#%1$s</string>
+    <string name="textView_topicTitle">Topic: #%1$s</string>
 
     <!-- ERRORS -->
     <string name="error_failed_update_data">Не удалось обновить данные. Проверьте доступ в интернет.</string>

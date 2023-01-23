@@ -40,11 +40,8 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
         setUpMessageListRecyclerView()
         setUpEmojiBottomSheetFragmentListener()
         setUpSendMessageOnClickListener()
+        setUpTitles()
         setOnMessageBoxTextChangeListener()
-        presenter.setTitles(
-            streamTitle = intent.getStringExtra(ARG_STREAM_TITLE).orEmpty(),
-            topicTitle = intent.getStringExtra(ARG_TOPIC_TITLE).orEmpty()
-        )
         presenter.onCreate()
     }
 
@@ -107,6 +104,23 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
             adapter = messengerAdapter
             layoutManager = LinearLayoutManager(this@MessengerActivity)
             addItemDecoration(DateDecoration())
+        }
+    }
+
+    private fun setUpTitles() {
+        presenter.setTitles(
+            streamTitle = intent.getStringExtra(ARG_STREAM_TITLE).orEmpty(),
+            topicTitle = intent.getStringExtra(ARG_TOPIC_TITLE).orEmpty()
+        )
+        with(binding) {
+            textViewStreamTitle.text = getString(
+                R.string.textView_streamTitle,
+                intent.getStringExtra(ARG_STREAM_TITLE).orEmpty()
+            )
+            textViewTopicTitle.text = getString(
+                R.string.textView_topicTitle,
+                intent.getStringExtra(ARG_TOPIC_TITLE).orEmpty()
+            )
         }
     }
 
