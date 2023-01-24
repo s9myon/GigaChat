@@ -5,8 +5,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class MessengerActivityModule {
-
+class MessengerModule {
     @Provides
     fun providePresenter(
         getMessagesUseCase: GetMessagesUseCase,

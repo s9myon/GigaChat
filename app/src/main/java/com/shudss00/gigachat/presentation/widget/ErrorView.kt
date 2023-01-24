@@ -32,7 +32,7 @@ class ErrorView @JvmOverloads constructor(
         errorButton = findViewById(R.id.button_errorButton)
         gravity = Gravity.CENTER
         orientation = VERTICAL
-        context.withStyledAttributes(attrs, R.styleable.ErrorView, 0) {
+        context.withStyledAttributes(attrs, R.styleable.ErrorView, defStyleAttr) {
             errorImageView.setImageResource(
                 getResourceId(
                     R.styleable.ErrorView_errorImageSrc,

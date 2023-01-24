@@ -38,7 +38,7 @@ class MessengerAdapter(
                 DateViewHolder(
                     LayoutInflater
                         .from(parent.context)
-                        .inflate(R.layout.view_date_separator, parent, false)
+                        .inflate(R.layout.item_date_separator, parent, false)
                 )
             }
             MESSAGE_ITEM -> {

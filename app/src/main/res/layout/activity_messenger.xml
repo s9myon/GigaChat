@@ -7,35 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".presentation.messenger.MessengerActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_messenger"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar_messenger"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="56dp"
+        android:layout_height="@dimen/appBar_height"
         android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView_backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:src="@drawable/ic_back" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_streamTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="43dp"
-            android:layout_gravity="center_vertical"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="24sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            tools:text="#general" />
-    </com.google.android.material.appbar.MaterialToolbar>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_messenger"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:titleTextColor="?attr/colorOnPrimary"
+            app:titleTextAppearance="@style/TextAppearance.GigaChat.Headline5"
+            tools:title="#general"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/textView_topicTitle"
@@ -47,7 +36,7 @@
         android:background="?attr/colorSurface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_messenger"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_messenger"
         tools:text="Topic: #testing"/>
 
     <FrameLayout
@@ -105,13 +94,14 @@
         app:layout_constraintEnd_toStartOf="@+id/button_sendMessage"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/button_sendMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/messageBox_horizontalMargin"
-        android:src="@drawable/ic_add_file"
+        android:background="?selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/ic_add_file"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editText_messageBox" />
 </androidx.constraintlayout.widget.ConstraintLayout>

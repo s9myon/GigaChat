@@ -20,11 +20,23 @@
         <attr name="messageText" format="string" />
     </declare-styleable>
 
-    <attr name="messageBoxColor" format="color" />
-
     <declare-styleable name="ErrorView">
         <attr name="errorImageSrc" format="reference" />
-        <attr name="errorText" format="reference"/>
+        <attr name="errorText" format="reference" />
         <attr name="buttonText" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SearchToolbar">
+        <attr name="titleHint" format="string" />
+        <attr name="isElevationVisible" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="AvatarView">
+        <attr name="avatarSrc" format="reference" />
+        <attr name="onlineStatus" format="enum">
+            <enum name="active" value="0" />
+            <enum name="idle" value="1" />
+            <enum name="offline" value="2" />
+        </attr>
     </declare-styleable>
 </resources>

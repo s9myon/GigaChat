@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/item_streamList"
+        android:title="@string/bottomNavBar_streams"
+        android:icon="@drawable/ic_streams" />
+    <item android:id="@+id/item_userList"
+        android:title="@string/bottomNavBar_users"
+        android:icon="@drawable/ic_users" />
+    <item android:id="@+id/item_profile"
+        android:title="@string/bottomNavBar_profile"
+        android:icon="@drawable/ic_profile" />
+</menu>

@@ -6,5 +6,5 @@ interface MvpViewCallback<V: MvpView, P: Presenter<V>> {
 
     val presenter: P
 
-    var mvpView: V
+    val mvpView: V
 }

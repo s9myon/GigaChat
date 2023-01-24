@@ -20,6 +20,12 @@
 
     <style name="ShapeAppearanceOverlay.GigaChat.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.GigaChat.UserProfileAvatar" parent="">
+        <item name="cornerSize">15dp</item>
+        <item name="cornerFamily">rounded</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.GigaChat.EmojiBottomSheetDialog" parent="">

@@ -113,7 +113,7 @@ class MessengerActivity : MvpActivity<MessengerView, MessengerPresenter>(R.layou
             topicTitle = intent.getStringExtra(ARG_TOPIC_TITLE).orEmpty()
         )
         with(binding) {
-            textViewStreamTitle.text = getString(
+            toolbarMessenger.title = getString(
                 R.string.textView_streamTitle,
                 intent.getStringExtra(ARG_STREAM_TITLE).orEmpty()
             )

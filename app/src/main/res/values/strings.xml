@@ -1,13 +1,19 @@
 <resources>
     <string name="app_name">GigaChat</string>
-
-    <!-- DESCRIPTIONS -->
-    <string name="imageView_avatarContentDesc">This image is the sender\'s avatar</string>
-
-    <!-- MESSENGER -->
+    <string name="editText_searchStreamHint">Search…</string>
+    <string name="editText_searchUserHint">Users…</string>
+    <string name="tabItem_subscribed">Subscribed</string>
+    <string name="tabItem_allStreams">All streams</string>
+    <string name="bottomNavBar_streams">Channels</string>
+    <string name="bottomNavBar_users">People</string>
+    <string name="bottomNavBar_profile">Profile</string>
     <string name="editText_messageHint">Написать…</string>
     <string name="textView_streamTitle">#%1$s</string>
     <string name="textView_topicTitle">Topic: #%1$s</string>
+    <string name="textView_active">active</string>
+    <string name="textView_idle">idle</string>
+    <string name="textView_offline">offline</string>
+    <string name="button_logout">Log out</string>
 
     <!-- ERRORS -->
     <string name="error_failed_update_data">Не удалось обновить данные. Проверьте доступ в интернет.</string>

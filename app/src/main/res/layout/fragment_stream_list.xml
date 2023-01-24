@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout_streamList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceVariant">
+
+        <com.shudss00.gigachat.presentation.widget.SearchToolbar
+            android:id="@+id/toolbar_streamList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isElevationVisible="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout_streams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceVariant"
+        android:paddingBottom="27dp"
+        app:tabTextColor="?attr/colorOnSurface"
+        app:tabIndicator="@drawable/bg_tab_indicator"
+        app:tabIndicatorHeight="2dp"
+        app:tabTextAppearance="@style/TextAppearance.GigaChat.TabLayout">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tabItem_subscribed"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tabItem_allStreams"/>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_streamList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_stream"/>
+</LinearLayout>

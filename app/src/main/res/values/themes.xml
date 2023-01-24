@@ -14,10 +14,10 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/gray_950</item>
         <item name="colorSurface">@color/gray_900</item>
-        <item name="colorSurfaceVariant">@color/gray_750</item>
+        <item name="colorSurfaceVariant">@color/gray_850</item>
+        <item name="colorSurfaceInverse">@color/gray_700</item>
         <item name="colorOnSurface">@color/gray_100</item>
         <item name="colorOnSurfaceVariant">@color/gray_300</item>
-        <item name="messageBoxColor">@color/gray_800</item>
 
         <!-- CustomViews default styles. -->
         <item name="reactionViewStyle">@style/Widget.GigaChat.ReactionView</item>
@@ -40,6 +40,7 @@
         <item name="textAppearanceOverline">@style/TextAppearance.GigaChat.Overline</item>
     </style>
 
+    <!-- Additional themes -->
     <style name="ThemeOverlay.GigaChat.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.GigaChat.EmojiBottomSheetDialog</item>
     </style>
