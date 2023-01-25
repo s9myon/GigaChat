@@ -23,4 +23,21 @@ class UserRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override fun getAllUsers(): Single<List<User>> {
+        return Single.zip(
+            userApi.getAllUsers().map { it.members },
+            userApi.getUsersPresence().map { it.presences }
+        ) { users, presences ->
+            users.map { user ->
+                User(
+                    id = user.id,
+                    name = user.name,
+                    email = user.email,
+                    onlineStatus = presences[user.email]!!["aggregated"]!!.status,
+                    avatar = user.avatar
+                )
+            }
+        }
+    }
 }

@@ -14,9 +14,9 @@ import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class MessengerPresenter @Inject constructor(
-    internal val getMessagesUseCase: GetMessagesUseCase,
-    internal val sendStreamMessageUseCase: SendStreamMessageUseCase,
-    internal val setReactionToMessageUseCase: SetReactionToMessageUseCase
+    private val getMessagesUseCase: GetMessagesUseCase,
+    private val sendStreamMessageUseCase: SendStreamMessageUseCase,
+    private val setReactionToMessageUseCase: SetReactionToMessageUseCase
 ) : RxPresenter<MessengerView>() {
 
     private var dataParser = SimpleDateFormat("dd MMM")

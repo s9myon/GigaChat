@@ -12,5 +12,7 @@ data class UserDto(
     @SerialName("email")
     val email: String,
     @SerialName("avatar_url")
-    val avatar: String
+    val avatar: String,
+    @SerialName("is_bot")
+    val isBot: Boolean
 )

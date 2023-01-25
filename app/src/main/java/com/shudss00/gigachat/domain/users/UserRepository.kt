@@ -6,4 +6,6 @@ import io.reactivex.Single
 interface UserRepository {
 
     fun getOwnUser(): Single<User>
+
+    fun getAllUsers(): Single<List<User>>
 }

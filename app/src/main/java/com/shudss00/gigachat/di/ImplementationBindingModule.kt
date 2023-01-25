@@ -2,9 +2,12 @@ package com.shudss00.gigachat.di
 
 import com.shudss00.gigachat.data.messages.MessageRepositoryImpl
 import com.shudss00.gigachat.data.source.remote.messages.MessageApi
+import com.shudss00.gigachat.data.source.remote.streams.StreamApi
 import com.shudss00.gigachat.data.source.remote.users.UserApi
+import com.shudss00.gigachat.data.streams.StreamRepositoryImpl
 import com.shudss00.gigachat.data.users.UserRepositoryImpl
 import com.shudss00.gigachat.domain.messages.MessageRepository
+import com.shudss00.gigachat.domain.streams.StreamRepository
 import com.shudss00.gigachat.domain.users.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -23,6 +26,10 @@ abstract class ImplementationBindingModule {
     @Binds
     abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindStreamRepository(impl: StreamRepositoryImpl): StreamRepository
+
     companion object {
 
         @Singleton
@@ -35,6 +42,12 @@ abstract class ImplementationBindingModule {
         @Provides
         fun provideUserApi(retrofit: Retrofit): UserApi {
             return retrofit.create(UserApi::class.java)
+        }
+
+        @Singleton
+        @Provides
+        fun provideStreamsApi(retrofit: Retrofit): StreamApi {
+            return retrofit.create(StreamApi::class.java)
         }
     }
 }
