@@ -5,12 +5,12 @@ import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.messages.*
 import com.shudss00.gigachat.presentation.base.presenter.RxPresenter
 import com.shudss00.gigachat.presentation.extensions.async
+import com.shudss00.gigachat.presentation.extensions.formatTimestamp
 import com.shudss00.gigachat.presentation.messenger.listitems.DateItem
 import com.shudss00.gigachat.presentation.messenger.listitems.MessageItem
 import com.shudss00.gigachat.presentation.messenger.listitems.MessengerItem
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class MessengerPresenter @Inject constructor(
@@ -19,7 +19,7 @@ class MessengerPresenter @Inject constructor(
     private val setReactionToMessageUseCase: SetReactionToMessageUseCase
 ) : RxPresenter<MessengerView>() {
 
-    private var dataParser = SimpleDateFormat("dd MMM")
+
     private var streamTitle: String = ""
     private var topicTitle: String = ""
 
@@ -61,7 +61,7 @@ class MessengerPresenter @Inject constructor(
                 val messengerItems = mutableListOf<MessengerItem>()
                 var currentDay = ""
                 messageList.forEach { message ->
-                    val messageSendingTime = dataParser.format(message.timestamp * 1000)
+                    val messageSendingTime = formatTimestamp(message.timestamp)
                     if (currentDay != messageSendingTime) {
                         messengerItems.add(DateItem(date = messageSendingTime))
                         currentDay = messageSendingTime

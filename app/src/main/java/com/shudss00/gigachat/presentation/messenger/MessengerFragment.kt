@@ -33,7 +33,7 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
     override val mvpView: MessengerView = this
     private lateinit var messengerAdapter: MessengerAdapter
     private val binding by viewBinding(FragmentMessengerBinding::bind)
-    private var streamTitle by argument("ARG_STREAM_TITLE", "")
+    private val streamTitle by argument("ARG_STREAM_TITLE", "")
     private val topicTitle by argument("ARG_TOPIC_TITLE", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
         setUpEmojiBottomSheetFragmentListener()
         setUpSendMessageOnClickListener()
         setUpTitles()
-        setOnMessageBoxTextChangeListener()
+        setOnMessageBox()
         presenter.onCreate()
     }
 
@@ -129,7 +129,7 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
         }
     }
 
-    private fun setOnMessageBoxTextChangeListener() {
+    private fun setOnMessageBox() {
         with(binding) {
             editTextMessageBox.doAfterTextChanged { message ->
                 if (message.toString().isBlank()) {

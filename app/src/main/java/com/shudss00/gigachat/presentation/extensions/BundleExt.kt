@@ -4,7 +4,6 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
-import java.io.Serializable
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
