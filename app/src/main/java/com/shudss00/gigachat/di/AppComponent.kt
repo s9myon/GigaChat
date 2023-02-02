@@ -1,7 +1,11 @@
 package com.shudss00.gigachat.di
 
 import android.content.Context
-import com.shudss00.gigachat.presentation.messenger.MessengerActivity
+import com.shudss00.gigachat.presentation.main.MainFragment
+import com.shudss00.gigachat.presentation.messenger.MessengerFragment
+import com.shudss00.gigachat.presentation.streamlist.StreamListFragment
+import com.shudss00.gigachat.presentation.userlist.UserListFragment
+import com.shudss00.gigachat.presentation.userprofile.UserProfileFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,6 +24,9 @@ interface AppComponent {
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
-
-    fun inject(activity: MessengerActivity)
+    fun inject(fragment: MessengerFragment)
+    fun inject(fragment: StreamListFragment)
+    fun inject(fragment: UserListFragment)
+    fun inject(fragment: UserProfileFragment)
+    fun inject(fragment: MainFragment)
 }

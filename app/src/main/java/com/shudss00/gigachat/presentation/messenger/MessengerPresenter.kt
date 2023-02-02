@@ -5,9 +5,9 @@ import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.domain.messages.*
 import com.shudss00.gigachat.presentation.base.presenter.RxPresenter
 import com.shudss00.gigachat.presentation.extensions.async
-import com.shudss00.gigachat.presentation.messenger.viewobject.DateItem
-import com.shudss00.gigachat.presentation.messenger.viewobject.MessageItem
-import com.shudss00.gigachat.presentation.messenger.viewobject.MessengerItem
+import com.shudss00.gigachat.presentation.messenger.listitems.DateItem
+import com.shudss00.gigachat.presentation.messenger.listitems.MessageItem
+import com.shudss00.gigachat.presentation.messenger.listitems.MessengerItem
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import java.text.SimpleDateFormat

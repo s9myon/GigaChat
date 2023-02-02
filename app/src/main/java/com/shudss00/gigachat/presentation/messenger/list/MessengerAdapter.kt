@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.shudss00.gigachat.R
-import com.shudss00.gigachat.presentation.messenger.viewobject.DateItem
-import com.shudss00.gigachat.presentation.messenger.viewobject.MessageItem
-import com.shudss00.gigachat.presentation.messenger.viewobject.MessengerItem
+import com.shudss00.gigachat.presentation.messenger.listitems.DateItem
+import com.shudss00.gigachat.presentation.messenger.listitems.MessageItem
+import com.shudss00.gigachat.presentation.messenger.listitems.MessengerItem
 import com.shudss00.gigachat.presentation.widget.MessageView
 
 private const val DATE_ITEM = 0
@@ -34,20 +34,18 @@ class MessengerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
-            DATE_ITEM -> {
+            DATE_ITEM ->
                 DateViewHolder(
                     LayoutInflater
                         .from(parent.context)
                         .inflate(R.layout.item_date_separator, parent, false)
                 )
-            }
-            MESSAGE_ITEM -> {
+            MESSAGE_ITEM ->
                 MessageViewHolder(
                     MessageView(parent.context).apply {
                         messageClickListener = listener
                     }
                 )
-            }
             else -> throw Exception("No such viewType")
         }
     }
@@ -76,9 +74,8 @@ private class ItemCallback : DiffUtil.ItemCallback<MessengerItem>() {
     override fun areContentsTheSame(oldItem: MessengerItem, newItem: MessengerItem): Boolean {
         return when {
             oldItem is DateItem && newItem is DateItem -> oldItem.date == newItem.date
-            oldItem is MessageItem && newItem is MessageItem -> {
+            oldItem is MessageItem && newItem is MessageItem ->
                 (oldItem as MessageItem) == (newItem as MessageItem)
-            }
             else -> false
         }
     }

@@ -8,10 +8,6 @@ fun Int.dpToPx(): Int {
     return (this * Resources.getSystem().displayMetrics.density).toInt()
 }
 
-fun Int.spToPx(): Int {
-    return (this * Resources.getSystem().displayMetrics.scaledDensity).toInt()
-}
-
 val View.measuredWidthWithMargins: Int
     get() {
         val lp = this.layoutParams as ViewGroup.MarginLayoutParams
@@ -30,8 +26,4 @@ fun View.show() {
 
 fun View.hide() {
     visibility = View.GONE
-}
-
-fun View.makeInvisible() {
-    visibility = View.INVISIBLE
 }

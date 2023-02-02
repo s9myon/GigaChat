@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.presentation.messenger.viewobject
+package com.shudss00.gigachat.presentation.messenger.listitems
 
 import com.shudss00.gigachat.domain.model.Reaction
 

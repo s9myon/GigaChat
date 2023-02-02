@@ -39,4 +39,9 @@
             <enum name="offline" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="OnlineStatusView">
+        <attr name="android:textSize" />
+        <attr name="onlineStatus" />
+    </declare-styleable>
 </resources>

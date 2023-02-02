@@ -7,18 +7,22 @@ import timber.log.Timber
 
 class App: Application() {
 
-    lateinit var component: AppComponent
+    lateinit var appComponent: AppComponent
+        private set
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerAppComponent
-            .factory()
-            .create(applicationContext)
-
-        setUpTimber()
+        initAppScope()
+        initTimber()
     }
 
-    private fun setUpTimber() {
+    private fun initAppScope() {
+        appComponent = DaggerAppComponent
+            .factory()
+            .create(applicationContext)
+    }
+
+    private fun initTimber() {
         Timber.plant(Timber.DebugTree())
     }
 }

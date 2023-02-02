@@ -9,6 +9,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.imageview.ShapeableImageView
 import com.shudss00.gigachat.R
+import com.shudss00.gigachat.domain.utils.OnlineStatus
 
 class AvatarView @JvmOverloads constructor(
     context: Context,
@@ -67,26 +68,16 @@ class AvatarView @JvmOverloads constructor(
             placeholder(R.drawable.ic_person_foreground)
             fallback(R.drawable.ic_person_foreground)
         }
+        invalidate()
     }
 
     fun setOnlineStatus(status: OnlineStatus) {
-        when (status.code) {
-            0 -> imageViewOnlineStatus.setImageResource(R.drawable.ic_active)
-            1 -> imageViewOnlineStatus.setImageResource(R.drawable.ic_idle)
-            2 -> imageViewOnlineStatus.setImageResource(R.drawable.ic_offline)
+        when (status) {
+            OnlineStatus.ACTIVE -> imageViewOnlineStatus.setImageResource(R.drawable.ic_active)
+            OnlineStatus.IDLE -> imageViewOnlineStatus.setImageResource(R.drawable.ic_idle)
+            OnlineStatus.OFFLINE -> imageViewOnlineStatus.setImageResource(R.drawable.ic_offline)
+            OnlineStatus.INDEFINITE -> imageViewOnlineStatus.setImageResource(android.R.color.transparent)
         }
-    }
-
-    enum class OnlineStatus(val code: Int) {
-        ACTIVE(0),
-        IDLE(1),
-        OFFLINE(2);
-
-        companion object {
-            fun from(code: Int): OnlineStatus {
-                return OnlineStatus.values().find { it.code == code }
-                    ?: throw IllegalArgumentException("The number is not included in the range from 0 to 2")
-            }
-        }
+        invalidate()
     }
 }

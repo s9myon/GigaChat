@@ -1,0 +1,3 @@
+package com.shudss00.gigachat.presentation.streamlist.listitems
+
+interface StreamListItem

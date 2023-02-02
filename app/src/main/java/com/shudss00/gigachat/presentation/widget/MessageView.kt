@@ -15,7 +15,7 @@ import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.data.source.remote.common.Emoji
 import com.shudss00.gigachat.presentation.extensions.*
-import com.shudss00.gigachat.presentation.messenger.viewobject.MessageItem
+import com.shudss00.gigachat.presentation.messenger.listitems.MessageItem
 import java.lang.Integer.max
 
 private const val RECT_CORNERS_RADIUS = 20f

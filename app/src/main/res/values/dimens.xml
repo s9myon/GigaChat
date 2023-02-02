@@ -2,6 +2,9 @@
 <resources>
     <dimen name="appBar_height">56dp</dimen>
 
+    <!-- custom OnlineStatusView -->
+    <dimen name="onlineStatusView_textSize">16sp</dimen>
+
     <!-- custom ReactionView -->
     <dimen name="reactionView_textSize">14sp</dimen>
     <dimen name="reactionView_paddingHorizontal">9dp</dimen>

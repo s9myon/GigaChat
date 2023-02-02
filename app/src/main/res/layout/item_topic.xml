@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_topic"
     android:layout_width="match_parent"
     android:layout_height="41dp"
     android:background="?attr/colorPrimary"
@@ -9,6 +10,7 @@
     android:paddingHorizontal="41dp">
 
     <TextView
+        android:id="@+id/textView_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -19,6 +21,7 @@
         tools:text="Testing"/>
 
     <TextView
+        android:id="@+id/textView_messageCount"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="25dp"

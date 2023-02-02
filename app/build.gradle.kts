@@ -55,8 +55,10 @@ dependencies {
     implementation(Dependencies.appCompat)
     implementation(Dependencies.material)
     implementation(Dependencies.constraintLayout)
-    // swipe refresh layout
     implementation(Dependencies.swipeRefreshLayout)
+    // navComponent
+    implementation(Dependencies.navComponent)
+    implementation(Dependencies.navComponentUi)
     // rxjava
     implementation(Dependencies.rxjava)
     implementation(Dependencies.rxkotlin)
@@ -79,7 +81,7 @@ dependencies {
     implementation(Dependencies.timber)
     // viewBinding property delegate
     implementation(Dependencies.viewBindingPropertyDelegate)
-    // viewBinding property delegate isn't building without these dependencies
+    // viewBinding property delegate isn't building without these dependencies (idk why)
     implementation(Dependencies.lifecycleViewModel)
     implementation(Dependencies.lifecycleViewModelKtx)
 }

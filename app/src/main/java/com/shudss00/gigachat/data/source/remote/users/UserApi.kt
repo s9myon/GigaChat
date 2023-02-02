@@ -18,7 +18,4 @@ interface UserApi {
 
     @GET("users/{user_id}/presence")
     fun getUserPresence(@Path("user_id") userId: Long): Single<GetUserPresenceResponse>
-
-    @GET("realm/presence")
-    fun getUsersPresence(): Single<GetAllUsersPresenceResponse>
 }

@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import com.shudss00.gigachat.presentation.base.presenter.Presenter
 
 abstract class MvpFragment<V : MvpView, P : Presenter<V>>(
-    @LayoutRes contentLayoutId: Int
-) : Fragment(contentLayoutId), MvpViewCallback<V, P> {
+    @LayoutRes layoutRes: Int
+) : Fragment(layoutRes), MvpViewCallback<V, P> {
 
     private val mvpHelper: MvpHelper<V, P> by lazy { MvpHelper(this) }
 
