@@ -1,6 +1,9 @@
 package com.shudss00.gigachat.presentation.streamlist
 
 import android.os.Bundle
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -30,6 +33,7 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
     }
 
     override fun initUI() {
+        setUpToolbar()
         setUpStreamListRecyclerView()
         presenter.onCreate()
     }
@@ -62,6 +66,16 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
         binding.recyclerViewStreamList.apply {
             adapter = streamListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
+        }
+    }
+
+    private fun setUpToolbar() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbarStreamList) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                top = insets.top
+            )
+            WindowInsetsCompat.CONSUMED
         }
     }
 

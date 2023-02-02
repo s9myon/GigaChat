@@ -1,6 +1,9 @@
 package com.shudss00.gigachat.presentation.main
 
 import android.os.Bundle
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
@@ -52,6 +55,13 @@ class MainFragment : MvpFragment<MainView, MainPresenter>(R.layout.fragment_main
                 childFragmentManager,
                 item.itemId,
                 R.id.fragmentContainerView_mainContainer)
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNavViewMainMenu) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                bottom = insets.bottom
+            )
+            WindowInsetsCompat.CONSUMED
         }
     }
 }

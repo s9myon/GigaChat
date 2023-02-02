@@ -1,6 +1,9 @@
 package com.shudss00.gigachat.presentation.userlist
 
 import android.os.Bundle
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.shudss00.gigachat.R
@@ -25,6 +28,7 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
         super.onCreate(savedInstanceState)
     }
     override fun initUI() {
+        setUpToolbar()
         setUpUserListRecyclerView()
         presenter.getAllUsers()
     }
@@ -43,6 +47,16 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
             adapter = userListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             addItemDecoration(UserItemDecorator())
+        }
+    }
+
+    private fun setUpToolbar() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbarUserList) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                top = insets.top
+            )
+            WindowInsetsCompat.CONSUMED
         }
     }
 

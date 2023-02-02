@@ -2,6 +2,9 @@ package com.shudss00.gigachat.presentation.messenger
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -39,6 +42,7 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
     }
 
     override fun initUI() {
+        setUpToolbar()
         setUpMessageListRecyclerView()
         setUpEmojiBottomSheetFragmentListener()
         setUpSendMessageOnClickListener()
@@ -146,6 +150,16 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
                     editTextMessageBox.text.clear()
                 }
             }
+        }
+    }
+
+    private fun setUpToolbar() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarMessenger) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                top = insets.top
+            )
+            WindowInsetsCompat.CONSUMED
         }
     }
 

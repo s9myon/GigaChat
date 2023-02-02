@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar_messenger"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/appBar_height"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_messenger"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_back"
             app:titleTextColor="?attr/colorOnPrimary"
             app:titleTextAppearance="@style/TextAppearance.GigaChat.Headline5"

@@ -14,7 +14,7 @@
         android:background="?attr/colorSurfaceVariant">
 
         <com.shudss00.gigachat.presentation.widget.SearchToolbar
-            android:id="@+id/toolbar_streamList"
+            android:id="@+id/toolbar_userList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:titleHint="@string/editText_searchUserHint"
