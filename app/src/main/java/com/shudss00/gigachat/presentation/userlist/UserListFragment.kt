@@ -1,7 +1,6 @@
 package com.shudss00.gigachat.presentation.userlist
 
 import android.os.Bundle
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +10,7 @@ import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.databinding.FragmentUserListBinding
 import com.shudss00.gigachat.domain.model.User
 import com.shudss00.gigachat.presentation.base.MvpFragment
+import com.shudss00.gigachat.presentation.extensions.doOnApplyWindowInsets
 import com.shudss00.gigachat.presentation.userlist.list.UserItemDecorator
 import com.shudss00.gigachat.presentation.userlist.list.UserListAdapter
 import javax.inject.Inject
@@ -51,10 +51,10 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
     }
 
     private fun setUpToolbar() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbarUserList) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        binding.toolbarUserList.doOnApplyWindowInsets { view, insets, initialPadding ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(
-                top = insets.top
+                top = initialPadding.top + systemBarsInsets.top
             )
             WindowInsetsCompat.CONSUMED
         }

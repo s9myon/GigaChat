@@ -1,17 +1,16 @@
 package com.shudss00.gigachat.presentation.streamlist
 
 import android.os.Bundle
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.databinding.FragmentStreamListBinding
+import com.shudss00.gigachat.presentation.AppActivity
 import com.shudss00.gigachat.presentation.base.MvpFragment
-import com.shudss00.gigachat.presentation.messenger.MessengerFragment
+import com.shudss00.gigachat.presentation.extensions.doOnApplyWindowInsets
 import com.shudss00.gigachat.presentation.streamlist.list.StreamListAdapter
 import com.shudss00.gigachat.presentation.streamlist.list.StreamViewHolder
 import com.shudss00.gigachat.presentation.streamlist.list.TopicViewHolder
@@ -19,7 +18,7 @@ import com.shudss00.gigachat.presentation.streamlist.listitems.StreamListItem
 import javax.inject.Inject
 
 class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.layout.fragment_stream_list),
-    StreamListView, StreamViewHolder.StreamItemClickListener, TopicViewHolder.TopicItemClickListener {
+    StreamListView {
 
     @Inject
     override lateinit var presenter: StreamListPresenter
@@ -46,23 +45,19 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
         showToast(text)
     }
 
-    override fun onStreamItemClick(streamTitle: String) {
-        presenter.getAllStreams(streamTitle)
-    }
-
-    override fun onTopicItemClick(streamTitle: String, topicTitle: String) {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace(
-                R.id.fragmentContainerView_mainContainer,
-                MessengerFragment.newInstance(streamTitle, topicTitle)
-            )
-            addToBackStack(TAG)
-        }
-    }
-
     private fun setUpStreamListRecyclerView() {
-        streamListAdapter = StreamListAdapter(this, this)
+        streamListAdapter = StreamListAdapter(
+            object : StreamViewHolder.StreamItemClickListener {
+                override fun onStreamItemClick(streamTitle: String) {
+                    presenter.getAllStreams(streamTitle)
+                }
+            },
+            object : TopicViewHolder.TopicItemClickListener {
+                override fun onTopicItemClick(streamTitle: String, topicTitle: String) {
+                    (requireActivity() as AppActivity).openMessengerFragment(streamTitle, topicTitle)
+                }
+            }
+        )
         binding.recyclerViewStreamList.apply {
             adapter = streamListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
@@ -70,10 +65,10 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
     }
 
     private fun setUpToolbar() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbarStreamList) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        binding.toolbarStreamList.doOnApplyWindowInsets { view, insets, initialPadding ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(
-                top = insets.top
+                top = initialPadding.top + systemBarsInsets.top
             )
             WindowInsetsCompat.CONSUMED
         }

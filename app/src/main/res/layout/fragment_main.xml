@@ -7,7 +7,7 @@
     tools:context=".presentation.main.MainFragment">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView_mainContainer"
+        android:id="@+id/fragmentMain_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp" />

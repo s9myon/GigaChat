@@ -1,9 +1,11 @@
 package com.shudss00.gigachat.presentation.messenger
 
 import android.os.Bundle
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.shudss00.gigachat.databinding.FragmentMessengerBinding
 import com.shudss00.gigachat.domain.model.Message
 import com.shudss00.gigachat.presentation.base.MvpFragment
 import com.shudss00.gigachat.presentation.extensions.argument
+import com.shudss00.gigachat.presentation.extensions.doOnApplyWindowInsets
 import com.shudss00.gigachat.presentation.extensions.hide
 import com.shudss00.gigachat.presentation.extensions.show
 import com.shudss00.gigachat.presentation.messenger.emoji.EmojiBottomSheetFragment
@@ -26,7 +29,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layout.fragment_messenger),
-    MessengerView, MessageView.MessageClickListener {
+    MessengerView {
 
     @Inject
     override lateinit var presenter: MessengerPresenter
@@ -45,9 +48,9 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
         setUpToolbar()
         setUpMessageListRecyclerView()
         setUpEmojiBottomSheetFragmentListener()
-        setUpSendMessageOnClickListener()
+        setUpSendMessageButtonOnClickListener()
         setUpTitles()
-        setOnMessageBox()
+        setUpMessageBox()
         presenter.onCreate()
     }
 
@@ -85,18 +88,6 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
         binding.recyclerViewMessageList.hide()
     }
 
-    override fun onMessageLongClick(messageId: Long) {
-        EmojiBottomSheetFragment.show(childFragmentManager, messageId)
-    }
-
-    override fun onAddReactionButtonClick(messageId: Long) {
-        EmojiBottomSheetFragment.show(childFragmentManager, messageId)
-    }
-
-    override fun onReactionClick(messageId: Long, emoji: Emoji) {
-        presenter.setReactionToMessage(messageId, emoji)
-    }
-
     private fun setUpEmojiBottomSheetFragmentListener() {
         EmojiBottomSheetFragment.setUpResultListener(childFragmentManager, this) { messageId, emoji ->
             presenter.setReactionToMessage(messageId, emoji)
@@ -104,7 +95,19 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
     }
 
     private fun setUpMessageListRecyclerView() {
-        messengerAdapter = MessengerAdapter(this)
+        messengerAdapter = MessengerAdapter(object : MessageView.MessageClickListener {
+            override fun onMessageLongClick(messageId: Long) {
+                EmojiBottomSheetFragment.show(childFragmentManager, messageId)
+            }
+
+            override fun onAddReactionButtonClick(messageId: Long) {
+                EmojiBottomSheetFragment.show(childFragmentManager, messageId)
+            }
+
+            override fun onReactionClick(messageId: Long, emoji: Emoji) {
+                presenter.setReactionToMessage(messageId, emoji)
+            }
+        })
         binding.recyclerViewMessageList.apply {
             adapter = messengerAdapter
             layoutManager = LinearLayoutManager(requireActivity())
@@ -129,7 +132,7 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
         }
     }
 
-    private fun setOnMessageBox() {
+    private fun setUpMessageBox() {
         with(binding) {
             editTextMessageBox.doAfterTextChanged { message ->
                 if (message.toString().isBlank()) {
@@ -138,10 +141,18 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
                     buttonSendMessage.setImageResource(R.drawable.ic_send_message)
                 }
             }
+            editTextMessageBox.doOnApplyWindowInsets { view, insets, _ ->
+                val systemBarInset = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                val keyboardInset = insets.getInsets(WindowInsetsCompat.Type.ime())
+                view.updateLayoutParams<MarginLayoutParams> {
+                    bottomMargin = systemBarInset.bottom + keyboardInset.bottom
+                }
+                WindowInsetsCompat.CONSUMED
+            }
         }
     }
 
-    private fun setUpSendMessageOnClickListener() {
+    private fun setUpSendMessageButtonOnClickListener() {
         with(binding) {
             buttonSendMessage.setOnClickListener {
                 val message = editTextMessageBox.text.toString()
@@ -160,6 +171,11 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
                 top = insets.top
             )
             WindowInsetsCompat.CONSUMED
+        }
+        with(binding) {
+            toolbarMessenger.setNavigationOnClickListener {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
     }
 
