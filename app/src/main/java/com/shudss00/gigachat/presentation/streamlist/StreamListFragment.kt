@@ -5,6 +5,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.Tab
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.databinding.FragmentStreamListBinding
@@ -34,7 +36,8 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
     override fun initUI() {
         setUpToolbar()
         setUpStreamListRecyclerView()
-        presenter.onCreate()
+        setUpTabLayout()
+        presenter.getStreams(null)
     }
 
     override fun showStreamList(list: List<StreamListItem>) {
@@ -45,11 +48,30 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
         showToast(text)
     }
 
+    private fun setUpTabLayout() {
+        binding.tabLayoutStreams.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: Tab) {
+                when (tab.text) {
+                    getString(R.string.tabItem_subscribed) -> {
+                        presenter.currentStreamsType = StreamsType.SUBSCRIBED
+                        presenter.getStreams(null)
+                    }
+                    getString(R.string.tabItem_allStreams) -> {
+                        presenter.currentStreamsType = StreamsType.ALL_STREAMS
+                        presenter.getStreams(null)
+                    }
+                }
+            }
+            override fun onTabUnselected(tab: Tab) {}
+            override fun onTabReselected(tab: Tab) {}
+        })
+    }
+
     private fun setUpStreamListRecyclerView() {
         streamListAdapter = StreamListAdapter(
             object : StreamViewHolder.StreamItemClickListener {
                 override fun onStreamItemClick(streamTitle: String) {
-                    presenter.getAllStreams(streamTitle)
+                    presenter.getStreams(streamTitle)
                 }
             },
             object : TopicViewHolder.TopicItemClickListener {
@@ -65,7 +87,7 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
     }
 
     private fun setUpToolbar() {
-        binding.toolbarStreamList.doOnApplyWindowInsets { view, insets, initialPadding ->
+        binding.appbarLayoutStreamList.doOnApplyWindowInsets { view, insets, initialPadding ->
             val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(
                 top = initialPadding.top + systemBarsInsets.top

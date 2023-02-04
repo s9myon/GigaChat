@@ -51,14 +51,12 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.coreKtx)
+    implementation(Dependencies.core)
     implementation(Dependencies.appCompat)
     implementation(Dependencies.material)
     implementation(Dependencies.constraintLayout)
-    implementation(Dependencies.swipeRefreshLayout)
-    // navComponent
-    implementation(Dependencies.navComponent)
-    implementation(Dependencies.navComponentUi)
+    implementation(Dependencies.fragment)
+    implementation(Dependencies.viewPager)
     // rxjava
     implementation(Dependencies.rxjava)
     implementation(Dependencies.rxkotlin)

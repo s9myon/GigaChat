@@ -20,7 +20,7 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
     @Inject
     override lateinit var presenter: UserListPresenter
     override val mvpView: UserListView = this
-    lateinit var userListAdapter: UserListAdapter
+    private lateinit var userListAdapter: UserListAdapter
     private val binding by viewBinding(FragmentUserListBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
