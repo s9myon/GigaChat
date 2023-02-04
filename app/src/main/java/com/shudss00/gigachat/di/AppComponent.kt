@@ -1,7 +1,7 @@
 package com.shudss00.gigachat.di
 
 import android.content.Context
-import com.shudss00.gigachat.presentation.main.MainFragment
+import com.shudss00.gigachat.presentation.mainmenu.MainFragment
 import com.shudss00.gigachat.presentation.messenger.MessengerFragment
 import com.shudss00.gigachat.presentation.streamlist.StreamListFragment
 import com.shudss00.gigachat.presentation.userlist.UserListFragment

@@ -24,6 +24,7 @@
             android:id="@+id/tabLayout_streams"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorSurfaceVariant"
             app:tabTextColor="?attr/colorOnSurface"
             app:tabIndicator="@drawable/bg_tab_indicator"
             app:tabIndicatorHeight="2dp"

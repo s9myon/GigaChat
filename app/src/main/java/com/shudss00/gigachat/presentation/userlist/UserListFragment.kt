@@ -59,10 +59,4 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
             WindowInsetsCompat.CONSUMED
         }
     }
-
-    companion object {
-        const val TAG = "USER_LIST_FRAGMENT"
-
-        fun newInstance() = UserListFragment()
-    }
 }

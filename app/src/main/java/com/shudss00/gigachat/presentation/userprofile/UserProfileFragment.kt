@@ -36,10 +36,4 @@ class UserProfileFragment : MvpFragment<UserProfileView, UserProfilePresenter>(R
     override fun showError(text: Int) {
         showToast(text)
     }
-
-    companion object {
-        const val TAG = "USER_PROFILE_FRAGMENT"
-
-        fun newInstance() = UserProfileFragment()
-    }
 }

@@ -16,7 +16,7 @@
         <com.shudss00.gigachat.presentation.widget.SearchToolbar
             android:id="@+id/toolbar_userList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:titleHint="@string/editText_searchUserHint"
             app:isElevationVisible="false" />
     </com.google.android.material.appbar.AppBarLayout>

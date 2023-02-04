@@ -95,10 +95,4 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
             WindowInsetsCompat.CONSUMED
         }
     }
-
-    companion object {
-        const val TAG = "STREAM_LIST_FRAGMENT"
-
-        fun newInstance() = StreamListFragment()
-    }
 }
