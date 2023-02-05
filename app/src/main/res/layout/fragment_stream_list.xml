@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,23 +27,11 @@
             app:tabTextColor="?attr/colorOnSurface"
             app:tabIndicator="@drawable/bg_tab_indicator"
             app:tabIndicatorHeight="2dp"
-            app:tabTextAppearance="@style/TextAppearance.GigaChat.TabLayout">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tabItem_subscribed"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tabItem_allStreams"/>
-        </com.google.android.material.tabs.TabLayout>
+            app:tabTextAppearance="@style/TextAppearance.GigaChat.TabLayout" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_streamList"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager_streamList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_stream"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.shudss00.gigachat.presentation.mainmenu
 import android.os.Bundle
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.shudss00.gigachat.R
@@ -36,6 +37,7 @@ class MainFragment : MvpFragment<MainMenuView, MainMenuPresenter>(R.layout.fragm
     private fun setUpViewPager() {
         with(binding) {
             viewPagerMainMenu.adapter = MainMenuAdapter(childFragmentManager, lifecycle)
+            viewPagerMainMenu.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             viewPagerMainMenu.setPageTransformer(ZoomOutPageTransformer())
             viewPagerMainMenu.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

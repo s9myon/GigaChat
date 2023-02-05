@@ -3,17 +3,16 @@ package com.shudss00.gigachat.presentation.streamlist
 import android.os.Bundle
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.Tab
+import com.google.android.material.tabs.TabLayoutMediator
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.databinding.FragmentStreamListBinding
 import com.shudss00.gigachat.presentation.AppActivity
 import com.shudss00.gigachat.presentation.base.MvpFragment
 import com.shudss00.gigachat.presentation.extensions.doOnApplyWindowInsets
-import com.shudss00.gigachat.presentation.streamlist.list.StreamListAdapter
 import com.shudss00.gigachat.presentation.streamlist.list.StreamViewHolder
 import com.shudss00.gigachat.presentation.streamlist.list.TopicViewHolder
 import com.shudss00.gigachat.presentation.streamlist.listitems.StreamListItem
@@ -25,7 +24,6 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
     @Inject
     override lateinit var presenter: StreamListPresenter
     override var mvpView: StreamListView = this
-    private lateinit var streamListAdapter: StreamListAdapter
     private val binding by viewBinding(FragmentStreamListBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +33,17 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
 
     override fun initUI() {
         setUpToolbar()
-        setUpStreamListRecyclerView()
+        setUpStreamListTypeViewPager()
         setUpTabLayout()
         presenter.getStreams(null)
     }
 
     override fun showStreamList(list: List<StreamListItem>) {
-        streamListAdapter.streamListItems = list
+        with(binding) {
+            ((viewPagerStreamList.getChildAt(0) as? RecyclerView)
+                ?.findViewHolderForAdapterPosition(viewPagerStreamList.currentItem) as? StreamListTypeAdapter.ViewHolder)
+                ?.updateList(list)
+        }
     }
 
     override fun showErrorToast(text: Int) {
@@ -49,44 +51,48 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
     }
 
     private fun setUpTabLayout() {
-        binding.tabLayoutStreams.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: Tab) {
-                when (tab.text) {
-                    getString(R.string.tabItem_subscribed) -> {
-                        presenter.currentStreamsType = StreamsType.SUBSCRIBED
-                        presenter.getStreams(null)
-                    }
-                    getString(R.string.tabItem_allStreams) -> {
-                        presenter.currentStreamsType = StreamsType.ALL_STREAMS
-                        presenter.getStreams(null)
-                    }
+        with(binding) {
+            TabLayoutMediator(tabLayoutStreams, viewPagerStreamList) { tab, position ->
+                when (position) {
+                    StreamListType.SUBSCRIBED.position ->
+                        tab.text = getString(StreamListType.SUBSCRIBED.stringRes)
+                    StreamListType.ALL_STREAMS.position ->
+                        tab.text = getString(StreamListType.ALL_STREAMS.stringRes)
                 }
-            }
-            override fun onTabUnselected(tab: Tab) {}
-            override fun onTabReselected(tab: Tab) {}
-        })
+            }.attach()
+        }
     }
 
-    private fun setUpStreamListRecyclerView() {
-        streamListAdapter = StreamListAdapter(
-            object : StreamViewHolder.StreamItemClickListener {
-                override fun onStreamItemClick(streamTitle: String) {
-                    presenter.getStreams(streamTitle)
+    private fun setUpStreamListTypeViewPager() {
+        binding.viewPagerStreamList.apply {
+            adapter = StreamListTypeAdapter(
+                object : StreamViewHolder.StreamItemClickListener {
+                    override fun onStreamItemClick(streamTitle: String) {
+                        presenter.getStreams(streamTitle)
+                    }
+                },
+                object : TopicViewHolder.TopicItemClickListener {
+                    override fun onTopicItemClick(streamTitle: String, topicTitle: String) {
+                        (requireActivity() as AppActivity).openMessengerFragment(
+                            streamTitle = streamTitle,
+                            topicTitle = topicTitle,
+                            stackName = this@StreamListFragment::class.simpleName
+                        )
+                    }
                 }
-            },
-            object : TopicViewHolder.TopicItemClickListener {
-                override fun onTopicItemClick(streamTitle: String, topicTitle: String) {
-                    (requireActivity() as AppActivity).openMessengerFragment(
-                        streamTitle = streamTitle,
-                        topicTitle = topicTitle,
-                        stackName = this@StreamListFragment.javaClass.simpleName
-                    )
+            )
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (position) {
+                        StreamListType.SUBSCRIBED.position ->
+                            presenter.currentStreamListType = StreamListType.SUBSCRIBED
+                        StreamListType.ALL_STREAMS.position ->
+                            presenter.currentStreamListType = StreamListType.ALL_STREAMS
+                    }
                 }
-            }
-        )
-        binding.recyclerViewStreamList.apply {
-            adapter = streamListAdapter
-            layoutManager = LinearLayoutManager(requireActivity())
+            })
         }
     }
 
