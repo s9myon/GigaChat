@@ -2,41 +2,43 @@ object Dependencies {
     ///////////////////////////////////////////////////
     //////////////////// android //////////////////////
     ///////////////////////////////////////////////////
-    const val coreVersion = "1.9.0"
+    private const val coreVersion = "1.9.0"
     const val core = "androidx.core:core-ktx:$coreVersion"
 
-    const val appCompatVersion = "1.6.0"
+    private const val appCompatVersion = "1.6.0"
     const val appCompat = "androidx.appcompat:appcompat:$appCompatVersion"
 
-    const val materialVersion = "1.7.0"
+    private const val materialVersion = "1.7.0"
     const val material = "com.google.android.material:material:$materialVersion"
 
-    const val constraintLayoutVersion = "2.1.4"
+    private const val constraintLayoutVersion = "2.1.4"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
-    const val fragmentVersion = "1.5.5"
+    private const val fragmentVersion = "1.5.5"
     const val fragment = "androidx.fragment:fragment-ktx:$fragmentVersion"
 
-    const val viewPagerVersion = "1.0.0"
+    private const val viewPagerVersion = "1.0.0"
     const val viewPager = "androidx.viewpager2:viewpager2:$viewPagerVersion"
+
+    private const val swipeRefreshLayoutVersion = "1.1.0"
+    const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion"
 
     ///////////////////////////////////////////////////
     ///////////////////// rxjava //////////////////////
     ///////////////////////////////////////////////////
-    const val rxjavaVersion = "2.2.21"
+    private const val rxjavaVersion = "2.2.21"
     const val rxjava = "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
 
-    const val rxkotlinVersion = "2.4.0"
+    private const val rxkotlinVersion = "2.4.0"
     const val rxkotlin = "io.reactivex.rxjava2:rxkotlin:$rxkotlinVersion"
 
-    const val rxandroidVersion = "2.1.1"
+    private const val rxandroidVersion = "2.1.1"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
-
 
     ////////////////////////////////////////////////////
     //////////////////// retrofit //////////////////////
     ////////////////////////////////////////////////////
-    const val retrofitVersion = "2.9.0"
+    private const val retrofitVersion = "2.9.0"
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     const val retrofitRxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
@@ -44,48 +46,48 @@ object Dependencies {
     ///////////////////////////////////////////////////
     //////////////////// okhttp ///////////////////////
     ///////////////////////////////////////////////////
-    const val okhttpVersion = "5.0.0-alpha.3"
+    private const val okhttpVersion = "5.0.0-alpha.3"
     const val okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion"
     const val okhttpLogInterceptor = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     ///////////////////////////////////////////////////
     /////////////// kotlinSerialization ///////////////
     ///////////////////////////////////////////////////
-    const val kotlinSerializationJSONVersion = "1.4.1"
+    private const val kotlinSerializationJSONVersion = "1.4.1"
     const val kotlinSerializationJSON =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationJSONVersion"
 
-    const val kotlinSerializationRetrofitVersion = "0.8.0"
+    private const val kotlinSerializationRetrofitVersion = "0.8.0"
     const val kotlinSerializationRetrofit =
         "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinSerializationRetrofitVersion"
 
     ///////////////////////////////////////////////////
     //////////////////// dagger ///////////////////////
     ///////////////////////////////////////////////////
-    const val daggerVersion = "2.44"
+    private const val daggerVersion = "2.44"
     const val dagger = "com.google.dagger:dagger:$daggerVersion"
     const val daggerKapt = "com.google.dagger:dagger-compiler:$daggerVersion"
 
     ///////////////////////////////////////////////////
     ///////////////////// coil ////////////////////////
     ///////////////////////////////////////////////////
-    const val coilVersion = "2.2.2"
+    private const val coilVersion = "2.2.2"
     const val coil = "io.coil-kt:coil:$coilVersion"
 
     ///////////////////////////////////////////////////
     //////////////////// timber ///////////////////////
     ///////////////////////////////////////////////////
-    const val timberVersion = "5.0.1"
+    private const val timberVersion = "5.0.1"
     const val timber = "com.jakewharton.timber:timber:$timberVersion"
 
     ///////////////////////////////////////////////////
     /////////// viewBindingPropertyDelegate ///////////
     ///////////////////////////////////////////////////
-    const val viewBindingPropertyDelegateVersion = "1.5.6"
+    private const val viewBindingPropertyDelegateVersion = "1.5.6"
     const val viewBindingPropertyDelegate =
         "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$viewBindingPropertyDelegateVersion"
     // viewBinding property delegate isn't building without these dependencies
-    const val viewModelVersion = "2.5.1"
+    private const val viewModelVersion = "2.5.1"
     const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel:$viewModelVersion"
     const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
 }

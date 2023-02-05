@@ -90,6 +90,7 @@
         android:textColor="?attr/colorOnSurfaceVariant"
         android:textColorHint="?attr/colorOnSurfaceVariant"
         android:textSize="18sp"
+        android:imeOptions="flagNoExtractUi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_sendMessage"
         app:layout_constraintStart_toStartOf="parent" />

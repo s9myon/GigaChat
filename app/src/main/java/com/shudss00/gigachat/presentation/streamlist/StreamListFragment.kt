@@ -76,7 +76,11 @@ class StreamListFragment : MvpFragment<StreamListView, StreamListPresenter>(R.la
             },
             object : TopicViewHolder.TopicItemClickListener {
                 override fun onTopicItemClick(streamTitle: String, topicTitle: String) {
-                    (requireActivity() as AppActivity).openMessengerFragment(streamTitle, topicTitle)
+                    (requireActivity() as AppActivity).openMessengerFragment(
+                        streamTitle = streamTitle,
+                        topicTitle = topicTitle,
+                        stackName = this@StreamListFragment.javaClass.simpleName
+                    )
                 }
             }
         )

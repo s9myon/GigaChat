@@ -58,6 +58,7 @@ dependencies {
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.fragment)
     implementation(Dependencies.viewPager)
+    implementation(Dependencies.swipeRefreshLayout)
     // rxjava
     implementation(Dependencies.rxjava)
     implementation(Dependencies.rxkotlin)

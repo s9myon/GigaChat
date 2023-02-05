@@ -20,6 +20,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:hint="@string/editText_searchStreamHint"
+        android:imeOptions="flagNoExtractUi"
         android:textAppearance="@style/TextAppearance.GigaChat.Headline5"/>
 
     <androidx.appcompat.widget.AppCompatImageButton

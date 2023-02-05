@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
@@ -149,6 +150,40 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
                 }
                 WindowInsetsCompat.CONSUMED
             }
+            ViewCompat.setWindowInsetsAnimationCallback(
+                editTextMessageBox,
+                object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
+                    var startBottom = 0f
+                    var endBottom = 0f
+
+                    override fun onPrepare(animation: WindowInsetsAnimationCompat) {
+                        startBottom = editTextMessageBox.bottom.toFloat()
+                    }
+
+                    override fun onStart(
+                        animation: WindowInsetsAnimationCompat,
+                        bounds: WindowInsetsAnimationCompat.BoundsCompat
+                    ): WindowInsetsAnimationCompat.BoundsCompat {
+                        endBottom = editTextMessageBox.bottom.toFloat()
+                        return bounds
+                    }
+
+                    override fun onProgress(
+                        insets: WindowInsetsCompat,
+                        runningAnimations: MutableList<WindowInsetsAnimationCompat>
+                    ): WindowInsetsCompat {
+                        val keyboardAnimation = runningAnimations.find {
+                            it.typeMask and WindowInsetsCompat.Type.ime() != 0
+                        } ?: return insets
+                        val intermediatePosition =
+                            (startBottom - endBottom) * (1 - keyboardAnimation.interpolatedFraction)
+                        editTextMessageBox.translationY = intermediatePosition
+                        buttonSendMessage.translationY = intermediatePosition
+                        return insets
+                    }
+
+                }
+            )
         }
     }
 

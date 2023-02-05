@@ -18,14 +18,20 @@ class AppActivity : AppCompatActivity(R.layout.layout_container) {
         }
     }
 
-    fun openMessengerFragment(streamTitle: String, topicTitle: String) {
+    fun openMessengerFragment(streamTitle: String, topicTitle: String, stackName: String? = null) {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             replace(
                 R.id.layout_container,
                 MessengerFragment.newInstance(streamTitle, topicTitle)
             )
-            addToBackStack(null)
+            addToBackStack(stackName)
         }
     }
 
