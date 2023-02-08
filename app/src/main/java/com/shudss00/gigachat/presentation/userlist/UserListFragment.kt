@@ -9,6 +9,7 @@ import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
 import com.shudss00.gigachat.databinding.FragmentUserListBinding
 import com.shudss00.gigachat.domain.model.User
+import com.shudss00.gigachat.presentation.AppActivity
 import com.shudss00.gigachat.presentation.base.MvpFragment
 import com.shudss00.gigachat.presentation.extensions.doOnApplyWindowInsets
 import com.shudss00.gigachat.presentation.userlist.list.UserItemDecorator
@@ -42,7 +43,13 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
     }
 
     private fun setUpUserListRecyclerView() {
-        userListAdapter = UserListAdapter()
+        userListAdapter = UserListAdapter(
+            object : UserListAdapter.UserClickListener {
+                override fun onUserClick(userId: Long, username: String) {
+                    (requireActivity() as AppActivity).openMessengerFragment(userId, username)
+                }
+            }
+        )
         binding.recyclerViewStreamList.apply {
             adapter = userListAdapter
             layoutManager = LinearLayoutManager(requireActivity())

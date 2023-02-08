@@ -7,16 +7,30 @@ import kotlinx.serialization.json.Json
 
 class NarrowBuilder {
 
-    @Suppress("unused")
     @Serializable
-    private class Criteria(
-        @SerialName("negated")
-        val negated: Boolean = false,
-        @SerialName("operator")
-        val operator: String,
-        @SerialName("operand")
-        val operand: String
-    )
+    private sealed interface Criteria {
+        @Suppress("unused")
+        @Serializable
+        class StringOperandCriteria(
+            @SerialName("negated")
+            val negated: Boolean = false,
+            @SerialName("operator")
+            val operator: String,
+            @SerialName("operand")
+            val operand: String
+        ) : Criteria
+
+        @Suppress("unused")
+        @Serializable
+        class LongArrayOperandCriteria(
+            @SerialName("negated")
+            val negated: Boolean = false,
+            @SerialName("operator")
+            val operator: String,
+            @SerialName("operand")
+            val operand: LongArray
+        ) : Criteria
+    }
 
     private val criterias = mutableListOf<Criteria>()
 
@@ -26,7 +40,7 @@ class NarrowBuilder {
 
     fun stream(title: String, negated: Boolean = false): NarrowBuilder {
         criterias.add(
-            Criteria(
+            Criteria.StringOperandCriteria(
                 operator = "stream",
                 operand = title,
                 negated = negated
@@ -37,7 +51,7 @@ class NarrowBuilder {
 
     fun topic(title: String, negated: Boolean = false): NarrowBuilder {
         criterias.add(
-            Criteria(
+            Criteria.StringOperandCriteria(
                 operator = "topic",
                 operand = title,
                 negated = negated
@@ -46,11 +60,11 @@ class NarrowBuilder {
         return this
     }
 
-    fun privateMessagesWith(userId: Long, negated: Boolean = false): NarrowBuilder {
+    fun privateMessagesWith(vararg userIds: Long, negated: Boolean = false): NarrowBuilder {
         criterias.add(
-            Criteria(
+            Criteria.LongArrayOperandCriteria(
                 operator = "pm-with",
-                operand = userId.toString(),
+                operand = userIds,
                 negated = negated
             )
         )

@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.di
 
-import com.shudss00.gigachat.domain.messages.GetMessagesUseCase
+import com.shudss00.gigachat.domain.messages.GetStreamMessagesUseCase
 import com.shudss00.gigachat.domain.messages.MessageRepository
 import com.shudss00.gigachat.domain.users.GetOwnUserUseCase
 import com.shudss00.gigachat.domain.users.UserRepository
@@ -13,8 +13,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideGetMessagesUseCase(messageRepository: MessageRepository): GetMessagesUseCase {
-        return GetMessagesUseCase(messageRepository)
+    fun provideGetMessagesUseCase(messageRepository: MessageRepository): GetStreamMessagesUseCase {
+        return GetStreamMessagesUseCase(messageRepository)
     }
 
     @Singleton

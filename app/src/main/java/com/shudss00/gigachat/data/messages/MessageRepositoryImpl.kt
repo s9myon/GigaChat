@@ -8,6 +8,8 @@ import com.shudss00.gigachat.domain.messages.MessageRepository
 import com.shudss00.gigachat.domain.model.Message
 import io.reactivex.Completable
 import io.reactivex.Single
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 class MessageRepositoryImpl @Inject constructor(
@@ -16,7 +18,7 @@ class MessageRepositoryImpl @Inject constructor(
     private val messageMapper: MessageMapper
 ) : MessageRepository {
 
-    override fun getMessages(streamTitle: String, topicTitle: String): Single<List<Message>> {
+    override fun getStreamMessages(streamTitle: String, topicTitle: String): Single<List<Message>> {
         return Single.zip(
             messageApi.getMessages(
                 narrows = NarrowBuilder()
@@ -32,10 +34,25 @@ class MessageRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getPrivateMessages(userId: Long): Single<List<Message>> {
+        return Single.zip(
+            messageApi.getMessages(
+                narrows = NarrowBuilder()
+                    .privateMessagesWith(userId)
+                    .build()
+            ).map { it.messages },
+            userApi.getOwnUser()
+        ) { messages, ownUser ->
+            messages.map { message ->
+                messageMapper.map(message, ownUser.id)
+            }
+        }
+    }
+
     override fun sendPrivateMessage(userId: Long, content: String): Completable {
         return messageApi.sendMessage(
             type = "private",
-            to = userId.toString(),
+            to = Json.encodeToString(listOf(userId)),
             content = content
         )
     }

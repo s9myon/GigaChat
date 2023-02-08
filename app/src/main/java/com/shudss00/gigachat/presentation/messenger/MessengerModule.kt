@@ -8,13 +8,17 @@ import dagger.Provides
 class MessengerModule {
     @Provides
     fun providePresenter(
-        getMessagesUseCase: GetMessagesUseCase,
+        getStreamMessagesUseCase: GetStreamMessagesUseCase,
+        getPrivateMessagesUseCase: GetPrivateMessagesUseCase,
         sendStreamMessageUseCase: SendStreamMessageUseCase,
+        sendPrivateMessageUseCase: SendPrivateMessageUseCase,
         setReactionToMessageUseCase: SetReactionToMessageUseCase
     ): MessengerPresenter {
         return MessengerPresenter(
-            getMessagesUseCase,
+            getStreamMessagesUseCase,
+            getPrivateMessagesUseCase,
             sendStreamMessageUseCase,
+            sendPrivateMessageUseCase,
             setReactionToMessageUseCase
         )
     }

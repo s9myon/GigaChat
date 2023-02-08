@@ -6,7 +6,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface MessageRepository {
-    fun getMessages(streamTitle: String, topicTitle: String): Single<List<Message>>
+    fun getStreamMessages(streamTitle: String, topicTitle: String): Single<List<Message>>
+
+    fun getPrivateMessages(userId: Long): Single<List<Message>>
 
     fun sendPrivateMessage(userId: Long, content: String): Completable
 

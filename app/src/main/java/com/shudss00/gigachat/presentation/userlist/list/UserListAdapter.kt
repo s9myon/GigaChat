@@ -8,7 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shudss00.gigachat.databinding.ItemUserBinding
 import com.shudss00.gigachat.domain.model.User
 
-class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserListAdapter(
+    private val listener: UserClickListener
+): RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+
+    interface UserClickListener {
+        fun onUserClick(userId: Long, username: String)
+    }
 
     private val differ = AsyncListDiffer(this, ItemCallback())
     var userItems: List<User>
@@ -17,7 +23,8 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            listener
         )
     }
 
@@ -29,7 +36,10 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
         return userItems.size
     }
 
-    class ViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemUserBinding,
+        private val listener: UserClickListener
+    ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: User) {
             with(binding) {
@@ -37,6 +47,9 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
                 avatarViewUserAvatar.setOnlineStatus(item.onlineStatus)
                 textViewUsername.text = item.name
                 textViewEmail.text = item.email
+                binding.root.setOnClickListener {
+                    listener.onUserClick(item.id, item.name)
+                }
             }
         }
     }

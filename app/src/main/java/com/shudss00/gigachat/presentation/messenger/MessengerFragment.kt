@@ -37,8 +37,10 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
     override val mvpView: MessengerView = this
     private lateinit var messengerAdapter: MessengerAdapter
     private val binding by viewBinding(FragmentMessengerBinding::bind)
-    private val streamTitle by argument("ARG_STREAM_TITLE", "")
-    private val topicTitle by argument("ARG_TOPIC_TITLE", "")
+    private val streamTitle by argument(ARG_STREAM_TITLE, "")
+    private val topicTitle by argument(ARG_TOPIC_TITLE, "")
+    private val companionUserId by argument(ARG_USER_ID, -1L)
+    private val companionUsername by argument(ARG_USERNAME, "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity().application as App).appComponent.inject(this)
@@ -119,17 +121,28 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
     private fun setUpTitles() {
         presenter.setTitles(
             streamTitle = streamTitle,
-            topicTitle = topicTitle
+            topicTitle = topicTitle,
+            companionUserId = companionUserId
         )
         with(binding) {
-            toolbarMessenger.title = getString(
-                R.string.textView_streamTitle,
-                streamTitle
-            )
-            textViewTopicTitle.text = getString(
-                R.string.textView_topicTitle,
-                topicTitle
-            )
+            if (streamTitle.isNotBlank() && topicTitle.isNotBlank()) {
+                toolbarMessenger.title = getString(
+                    R.string.textView_streamTitle,
+                    streamTitle
+                )
+                textViewTopicTitle.text = getString(
+                    R.string.textView_topicTitle,
+                    topicTitle
+                )
+                textViewTopicTitle.show()
+            }
+            if (companionUserId != -1L && companionUsername.isNotBlank()) {
+                toolbarMessenger.title = getString(
+                    R.string.textView_streamTitle,
+                    companionUsername
+                )
+                textViewTopicTitle.hide()
+            }
         }
     }
 
@@ -217,12 +230,22 @@ class MessengerFragment : MvpFragment<MessengerView, MessengerPresenter>(R.layou
     companion object {
         private const val ARG_STREAM_TITLE = "ARG_STREAM_TITLE"
         private const val ARG_TOPIC_TITLE = "ARG_TOPIC_TITLE"
+        private const val ARG_USER_ID = "ARG_USER_ID"
+        private const val ARG_USERNAME = "ARG_USERNAME"
 
         fun newInstance(streamTitle: String, topicTitle: String) =
             MessengerFragment().apply {
                 arguments = bundleOf(
                     ARG_STREAM_TITLE to streamTitle,
                     ARG_TOPIC_TITLE to topicTitle
+                )
+            }
+
+        fun newInstance(userId: Long, username: String) =
+            MessengerFragment().apply {
+                arguments = bundleOf(
+                    ARG_USER_ID to userId,
+                    ARG_USERNAME to username
                 )
             }
     }
