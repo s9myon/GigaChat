@@ -1,7 +1,7 @@
 package com.shudss00.gigachat.data.source.remote.messages
 
 import com.shudss00.gigachat.data.source.remote.common.ApiResponse
-import com.shudss00.gigachat.data.source.remote.model.MessageDto
+import com.shudss00.gigachat.data.source.remote.dto.MessageDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

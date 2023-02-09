@@ -1,7 +1,7 @@
 package com.shudss00.gigachat.data.source.remote.streams
 
 import com.shudss00.gigachat.data.source.remote.common.ApiResponse
-import com.shudss00.gigachat.data.source.remote.model.TopicDto
+import com.shudss00.gigachat.data.source.remote.dto.TopicDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

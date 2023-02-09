@@ -13,7 +13,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.color.MaterialColors
 import com.shudss00.gigachat.R
-import com.shudss00.gigachat.data.source.remote.common.Emoji
+import com.shudss00.gigachat.domain.common.Emoji
 import com.shudss00.gigachat.presentation.extensions.*
 import com.shudss00.gigachat.presentation.messenger.listitems.MessageItem
 import java.lang.Integer.max

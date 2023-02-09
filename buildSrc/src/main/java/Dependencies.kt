@@ -51,6 +51,14 @@ object Dependencies {
     const val okhttpLogInterceptor = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     ///////////////////////////////////////////////////
+    ///////////////////// room ////////////////////////
+    ///////////////////////////////////////////////////
+    private const val roomVersion = "2.5.0"
+    const val room = "androidx.room:room-runtime:$roomVersion"
+    const val roomKapt = "androidx.room:room-compiler:$roomVersion"
+    const val roomRxJavaAdapter = "androidx.room:room-rxjava2:$roomVersion"
+
+    ///////////////////////////////////////////////////
     /////////////// kotlinSerialization ///////////////
     ///////////////////////////////////////////////////
     private const val kotlinSerializationJSONVersion = "1.4.1"

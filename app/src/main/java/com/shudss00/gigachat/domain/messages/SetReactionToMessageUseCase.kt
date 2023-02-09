@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.domain.messages
 
-import com.shudss00.gigachat.data.source.remote.common.Emoji
+import com.shudss00.gigachat.domain.common.Emoji
 import io.reactivex.Completable
 import javax.inject.Inject
 

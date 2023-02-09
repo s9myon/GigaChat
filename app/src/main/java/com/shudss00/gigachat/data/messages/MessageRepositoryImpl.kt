@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.data.messages
 
-import com.shudss00.gigachat.data.source.remote.common.Emoji
+import com.shudss00.gigachat.domain.common.Emoji
 import com.shudss00.gigachat.data.source.remote.messages.MessageApi
 import com.shudss00.gigachat.data.source.remote.messages.NarrowBuilder
 import com.shudss00.gigachat.data.source.remote.users.UserApi

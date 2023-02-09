@@ -69,6 +69,10 @@ dependencies {
     // okhttp3
     implementation(Dependencies.okhttp)
     implementation(Dependencies.okhttpLogInterceptor)
+    // room
+    implementation(Dependencies.room)
+    implementation(Dependencies.roomRxJavaAdapter)
+    kapt(Dependencies.roomKapt)
     // kotlin serialization
     implementation(Dependencies.kotlinSerializationJSON)
     implementation(Dependencies.kotlinSerializationRetrofit)

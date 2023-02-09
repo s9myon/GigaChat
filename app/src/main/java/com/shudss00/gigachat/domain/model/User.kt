@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.domain.model
 
-import com.shudss00.gigachat.domain.utils.OnlineStatus
+import com.shudss00.gigachat.domain.common.OnlineStatus
 
 data class User(
     val id: Long,

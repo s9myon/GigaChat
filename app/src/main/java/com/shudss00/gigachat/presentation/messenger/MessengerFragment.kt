@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.app.App
-import com.shudss00.gigachat.data.source.remote.common.Emoji
+import com.shudss00.gigachat.domain.common.Emoji
 import com.shudss00.gigachat.databinding.FragmentMessengerBinding
 import com.shudss00.gigachat.domain.model.Message
 import com.shudss00.gigachat.presentation.base.MvpFragment

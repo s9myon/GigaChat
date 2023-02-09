@@ -1,7 +1,7 @@
 package com.shudss00.gigachat.data.streams
 
-import com.shudss00.gigachat.data.source.remote.model.StreamDto
-import com.shudss00.gigachat.data.source.remote.model.TopicDto
+import com.shudss00.gigachat.data.source.remote.dto.StreamDto
+import com.shudss00.gigachat.data.source.remote.dto.TopicDto
 import com.shudss00.gigachat.domain.model.Stream
 import com.shudss00.gigachat.domain.model.Topic
 import javax.inject.Inject

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.shudss00.gigachat.R
-import com.shudss00.gigachat.data.source.remote.common.Emoji
+import com.shudss00.gigachat.domain.common.Emoji
 import com.shudss00.gigachat.databinding.FragmentEmojiBottomSheetBinding
 import com.shudss00.gigachat.presentation.extensions.parcelable
 

@@ -3,7 +3,7 @@ package com.shudss00.gigachat.data.users
 import com.shudss00.gigachat.data.source.remote.users.UserApi
 import com.shudss00.gigachat.domain.model.User
 import com.shudss00.gigachat.domain.users.UserRepository
-import com.shudss00.gigachat.domain.utils.OnlineStatus
+import com.shudss00.gigachat.domain.common.OnlineStatus
 import io.reactivex.Single
 import javax.inject.Inject
 

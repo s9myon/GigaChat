@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.domain.utils
+package com.shudss00.gigachat.domain.common
 
 enum class OnlineStatus(val code: Int) {
     ACTIVE(0),

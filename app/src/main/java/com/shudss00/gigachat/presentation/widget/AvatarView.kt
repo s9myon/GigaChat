@@ -9,7 +9,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.imageview.ShapeableImageView
 import com.shudss00.gigachat.R
-import com.shudss00.gigachat.domain.utils.OnlineStatus
+import com.shudss00.gigachat.domain.common.OnlineStatus
 
 class AvatarView @JvmOverloads constructor(
     context: Context,

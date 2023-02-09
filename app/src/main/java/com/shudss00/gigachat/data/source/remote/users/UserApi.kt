@@ -1,6 +1,6 @@
 package com.shudss00.gigachat.data.source.remote.users
 
-import com.shudss00.gigachat.data.source.remote.model.UserDto
+import com.shudss00.gigachat.data.source.remote.dto.UserDto
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

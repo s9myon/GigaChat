@@ -1,7 +1,7 @@
 package com.shudss00.gigachat.data.source.remote.users
 
 import com.shudss00.gigachat.data.source.remote.common.ApiResponse
-import com.shudss00.gigachat.data.source.remote.model.UserDto
+import com.shudss00.gigachat.data.source.remote.dto.UserDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

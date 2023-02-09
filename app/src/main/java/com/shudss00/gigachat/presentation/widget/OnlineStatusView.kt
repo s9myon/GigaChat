@@ -10,7 +10,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.shudss00.gigachat.R
-import com.shudss00.gigachat.domain.utils.OnlineStatus
+import com.shudss00.gigachat.domain.common.OnlineStatus
 
 class OnlineStatusView @JvmOverloads constructor(
     context: Context,

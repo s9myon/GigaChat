@@ -1,7 +1,7 @@
 package com.shudss00.gigachat.data.messages
 
-import com.shudss00.gigachat.data.source.remote.common.Emoji
-import com.shudss00.gigachat.data.source.remote.model.MessageDto
+import com.shudss00.gigachat.domain.common.Emoji
+import com.shudss00.gigachat.data.source.remote.dto.MessageDto
 import com.shudss00.gigachat.domain.model.Message
 import com.shudss00.gigachat.domain.model.Reaction
 import javax.inject.Inject

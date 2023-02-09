@@ -1,6 +1,10 @@
 package com.shudss00.gigachat.di
 
 import com.shudss00.gigachat.data.messages.MessageRepositoryImpl
+import com.shudss00.gigachat.data.source.local.db.AppDatabase
+import com.shudss00.gigachat.data.source.local.db.messages.MessageDao
+import com.shudss00.gigachat.data.source.local.db.streams.StreamDao
+import com.shudss00.gigachat.data.source.local.db.users.UserDao
 import com.shudss00.gigachat.data.source.remote.messages.MessageApi
 import com.shudss00.gigachat.data.source.remote.streams.StreamApi
 import com.shudss00.gigachat.data.source.remote.users.UserApi
@@ -16,7 +20,7 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-abstract class ImplementationBindingModule {
+abstract class RepositoryModule {
 
     @Singleton
     @Binds
@@ -46,8 +50,26 @@ abstract class ImplementationBindingModule {
 
         @Singleton
         @Provides
-        fun provideStreamsApi(retrofit: Retrofit): StreamApi {
+        fun provideStreamApi(retrofit: Retrofit): StreamApi {
             return retrofit.create(StreamApi::class.java)
+        }
+
+        @Singleton
+        @Provides
+        fun provideMessageDao(database: AppDatabase): MessageDao {
+            return database.messageDao()
+        }
+
+        @Singleton
+        @Provides
+        fun provideUserDao(database: AppDatabase): UserDao {
+            return database.userDao()
+        }
+
+        @Singleton
+        @Provides
+        fun provideStreamDao(database: AppDatabase): StreamDao {
+            return database.streamDao()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.shudss00.gigachat.data.source.remote.common
+package com.shudss00.gigachat.domain.common
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
