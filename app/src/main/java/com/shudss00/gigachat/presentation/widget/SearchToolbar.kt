@@ -1,6 +1,7 @@
 package com.shudss00.gigachat.presentation.widget
 
 import android.content.Context
+import android.text.Editable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.core.content.withStyledAttributes
+import androidx.core.widget.doAfterTextChanged
 import com.shudss00.gigachat.R
 import com.shudss00.gigachat.presentation.extensions.hide
 import com.shudss00.gigachat.presentation.extensions.show
@@ -42,13 +44,31 @@ class SearchToolbar @JvmOverloads constructor(
         }
     }
 
-    fun setOnSearchButtonClickListener(onClickListener: () -> Unit) {
-        buttonSearch.setOnClickListener {
-            onClickListener.invoke()
+    fun doAfterTextChanged(listener: (Editable?) -> Unit) {
+        editTextSearchBox.doAfterTextChanged { substring ->
+            listener.invoke(substring)
+            if (substring.toString().isBlank()) {
+                buttonSearch.setImageResource(R.drawable.ic_search)
+            } else {
+                buttonSearch.setImageResource(R.drawable.ic_close)
+            }
         }
     }
 
-    fun setElevationVisibility(shouldBeVisible: Boolean) {
+    fun setOnSearchButtonClickListener(listener: () -> Unit) {
+        buttonSearch.setOnClickListener {
+            if (editTextSearchBox.text.isNotBlank()) {
+                editTextSearchBox.text.clear()
+                listener.invoke()
+            }
+        }
+    }
+
+    fun clearText() {
+        editTextSearchBox.text.clear()
+    }
+
+    private fun setElevationVisibility(shouldBeVisible: Boolean) {
         if (shouldBeVisible) {
             elevationView.show()
         } else {

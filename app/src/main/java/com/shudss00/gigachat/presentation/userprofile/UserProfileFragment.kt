@@ -22,14 +22,14 @@ class UserProfileFragment : MvpFragment<UserProfileView, UserProfilePresenter>(R
         super.onCreate(savedInstanceState)
     }
     override fun initUI() {
-        presenter.getOwnUser()
+        presenter.observeOwnUser()
     }
 
     override fun showUser(user: User) {
         with(binding) {
             imageViewAvatar.load(user.avatar)
             textViewUsername.text = user.name
-            textViewOnlineStatus.setOnlineStatus(user.onlineStatus)
+            textViewOnlineStatus.setOnlineStatus(user.status)
         }
     }
 

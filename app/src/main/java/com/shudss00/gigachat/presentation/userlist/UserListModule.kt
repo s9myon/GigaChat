@@ -1,6 +1,8 @@
 package com.shudss00.gigachat.presentation.userlist
 
-import com.shudss00.gigachat.domain.users.GetAllUsersUseCase
+import com.shudss00.gigachat.domain.users.GetUsersBySubstringUseCase
+import com.shudss00.gigachat.domain.users.ObserveUsersUseCase
+import com.shudss00.gigachat.domain.users.RefreshUsersUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -8,10 +10,14 @@ import dagger.Provides
 class UserListModule {
     @Provides
     fun providePresenter(
-        getAllUsersUseCase: GetAllUsersUseCase
+        observeUsersUseCase: ObserveUsersUseCase,
+        refreshUsersUseCase: RefreshUsersUseCase,
+        getUsersBySubstringUseCase: GetUsersBySubstringUseCase
     ): UserListPresenter {
         return UserListPresenter(
-            getAllUsersUseCase
+            observeUsersUseCase,
+            refreshUsersUseCase,
+            getUsersBySubstringUseCase
         )
     }
 }

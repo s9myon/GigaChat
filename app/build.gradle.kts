@@ -28,6 +28,7 @@ android {
 
     buildTypes {
         getByName("debug") {
+            buildConfigField("Long", "USER_ID", "571790L")
             buildConfigField("String", "USER_EMAIL", "\"shudss00@gmail.com\"")
             buildConfigField("String", "API_KEY", "\"WQRafvOHUEI6DkbjmOoDOh6sY545nFTv\"")
         }
@@ -63,6 +64,7 @@ dependencies {
     implementation(Dependencies.rxjava)
     implementation(Dependencies.rxkotlin)
     implementation(Dependencies.rxandroid)
+    implementation(Dependencies.rxrelay)
     // retrofit
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitRxJavaAdapter)

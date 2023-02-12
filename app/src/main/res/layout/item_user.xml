@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,26 +9,33 @@
     <com.shudss00.gigachat.presentation.widget.AvatarView
         android:id="@+id/avatarView_userAvatar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_username"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="74dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="7dp"
-        android:textColor="?attr/colorOnSurface"
         android:textAppearance="@style/TextAppearance.GigaChat.Headline6"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/avatarView_userAvatar"
+        app:layout_constraintTop_toTopOf="@+id/avatarView_userAvatar"
         tools:text="Darrell Steward" />
 
     <TextView
         android:id="@+id/textView_email"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="74dp"
-        android:layout_marginBottom="7dp"
-        android:textSize="16sp"
+        android:layout_marginStart="10dp"
         android:textColor="@color/gray_400"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/avatarView_userAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/textView_username"
         tools:text="darrell@company.com" />
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

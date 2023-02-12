@@ -12,11 +12,11 @@ class UserProfilePresenter @Inject constructor(
     private val getOwnUserUseCase: GetOwnUserUseCase
 ) : RxPresenter<UserProfileView>() {
 
-    fun getOwnUser() {
+    fun observeOwnUser() {
         getOwnUserUseCase()
             .async()
             .subscribeBy(
-                onSuccess = {
+                onNext = {
                     view?.showUser(it)
                 },
                 onError = {

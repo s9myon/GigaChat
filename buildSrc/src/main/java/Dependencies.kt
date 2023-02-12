@@ -35,6 +35,9 @@ object Dependencies {
     private const val rxandroidVersion = "2.1.1"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
 
+    private const val rxrelayVersion = "2.1.1"
+    const val rxrelay = "com.jakewharton.rxrelay2:rxrelay:$rxrelayVersion"
+
     ////////////////////////////////////////////////////
     //////////////////// retrofit //////////////////////
     ////////////////////////////////////////////////////

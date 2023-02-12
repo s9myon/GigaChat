@@ -44,7 +44,7 @@ class UserListAdapter(
         fun bind(item: User) {
             with(binding) {
                 avatarViewUserAvatar.setAvatar(item.avatar)
-                avatarViewUserAvatar.setOnlineStatus(item.onlineStatus)
+                avatarViewUserAvatar.setOnlineStatus(item.status)
                 textViewUsername.text = item.name
                 textViewEmail.text = item.email
                 binding.root.setOnClickListener {

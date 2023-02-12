@@ -1,13 +1,13 @@
 package com.shudss00.gigachat.domain.users
 
 import com.shudss00.gigachat.domain.model.User
-import io.reactivex.Single
+import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetAllUsersUseCase @Inject constructor(
+class ObserveUsersUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    operator fun invoke(): Single<List<User>> {
-        return userRepository.getAllUsers()
+    operator fun invoke(): Observable<List<User>> {
+        return userRepository.observeUsers()
     }
 }

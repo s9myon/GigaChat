@@ -8,6 +8,7 @@ import com.shudss00.gigachat.domain.messages.MessageRepository
 import com.shudss00.gigachat.domain.model.Message
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -25,8 +26,11 @@ class MessageRepositoryImpl @Inject constructor(
                     .stream(streamTitle)
                     .topic(topicTitle)
                     .build()
-            ).map { it.messages },
+            )
+                .map { it.messages }
+                .subscribeOn(Schedulers.io()),
             userApi.getOwnUser()
+                .subscribeOn(Schedulers.io())
         ) { messages, ownUser ->
             messages.map { message ->
                 messageMapper.map(message, ownUser.id)
@@ -40,8 +44,11 @@ class MessageRepositoryImpl @Inject constructor(
                 narrows = NarrowBuilder()
                     .privateMessagesWith(userId)
                     .build()
-            ).map { it.messages },
+            )
+                .map { it.messages }
+                .subscribeOn(Schedulers.io()),
             userApi.getOwnUser()
+                .subscribeOn(Schedulers.io())
         ) { messages, ownUser ->
             messages.map { message ->
                 messageMapper.map(message, ownUser.id)
@@ -72,8 +79,12 @@ class MessageRepositoryImpl @Inject constructor(
 
     override fun setReactionToMessage(messageId: Long, emoji: Emoji): Completable {
         return Single.zip(
-            messageApi.getSingleMessage(messageId).map { it.message },
+            messageApi.getSingleMessage(messageId)
+                .map { it.message }
+                .subscribeOn(Schedulers.io())
+            ,
             userApi.getOwnUser()
+                .subscribeOn(Schedulers.io())
         ) { message, ownUser ->
             message.reactions.any { it.emojiName == emoji.emojiName && it.userId == ownUser.id }
         }.flatMapCompletable { isReactionAlreadySet ->

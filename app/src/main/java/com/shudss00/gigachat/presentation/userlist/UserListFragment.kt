@@ -12,6 +12,8 @@ import com.shudss00.gigachat.domain.model.User
 import com.shudss00.gigachat.presentation.AppActivity
 import com.shudss00.gigachat.presentation.base.MvpFragment
 import com.shudss00.gigachat.presentation.extensions.doOnApplyWindowInsets
+import com.shudss00.gigachat.presentation.extensions.hide
+import com.shudss00.gigachat.presentation.extensions.show
 import com.shudss00.gigachat.presentation.userlist.list.UserItemDecorator
 import com.shudss00.gigachat.presentation.userlist.list.UserListAdapter
 import javax.inject.Inject
@@ -31,15 +33,27 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
     override fun initUI() {
         setUpToolbar()
         setUpUserListRecyclerView()
-        presenter.getAllUsers()
+        setUpSwipeRefreshLayoutListener()
+        presenter.observeUsers()
     }
 
     override fun showAllUsers(list: List<User>) {
         userListAdapter.userItems = list
+        with(binding) {
+            recyclerViewUserList.show()
+            progressBarUserList.root.hide()
+        }
     }
 
     override fun showErrorToast(text: Int) {
         showToast(text)
+    }
+
+    override fun showLoading() {
+        with(binding) {
+            recyclerViewUserList.hide()
+            progressBarUserList.root.show()
+        }
     }
 
     private fun setUpUserListRecyclerView() {
@@ -50,7 +64,7 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
                 }
             }
         )
-        binding.recyclerViewStreamList.apply {
+        binding.recyclerViewUserList.apply {
             adapter = userListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             addItemDecoration(UserItemDecorator())
@@ -58,12 +72,35 @@ class UserListFragment : MvpFragment<UserListView, UserListPresenter>(R.layout.f
     }
 
     private fun setUpToolbar() {
-        binding.toolbarUserList.doOnApplyWindowInsets { view, insets, initialPadding ->
-            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(
-                top = initialPadding.top + systemBarsInsets.top
-            )
-            WindowInsetsCompat.CONSUMED
+        with (binding) {
+            toolbarUserList.doOnApplyWindowInsets { view, insets, initialPadding ->
+                val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.updatePadding(
+                    top = initialPadding.top + systemBarsInsets.top
+                )
+                WindowInsetsCompat.CONSUMED
+            }
+            // Note: toolbarUserList is custom SearchToolbar!!!
+            toolbarUserList.doAfterTextChanged { message ->
+                if (message.toString().isBlank()) {
+                    presenter.observeUsers()
+                } else {
+                    presenter.searchUsers(message.toString())
+                }
+            }
+            toolbarUserList.setOnSearchButtonClickListener {
+                presenter.observeUsers()
+            }
+        }
+    }
+
+    private fun setUpSwipeRefreshLayoutListener() {
+        with(binding) {
+            swipeRefreshUserList.setOnRefreshListener {
+                toolbarUserList.clearText()
+                presenter.refreshUsers()
+                swipeRefreshUserList.isRefreshing = false
+            }
         }
     }
 }
